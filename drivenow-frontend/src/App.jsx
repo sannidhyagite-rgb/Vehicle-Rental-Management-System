@@ -10,6 +10,7 @@ import FeaturedVehicles from "./components/home/FeaturedVehicles";
 
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
+import MyBookings from "./components/MyBooking/MyBookings";
 
 function Home() {
   return (
@@ -29,6 +30,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/mybookings" element={<MyBookings />} />
+        
+      
       </Routes>
     </BrowserRouter>
   );
