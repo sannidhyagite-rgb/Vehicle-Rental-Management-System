@@ -9,6 +9,7 @@ import FeaturedVehicles from "./components/home/FeaturedVehicles";
 
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
+import MyBookings from "./components/MyBooking/MyBookings";
 
 import CustomerDashboard from "./pages/CustomerDashboard";
 import VendorRegister from "./pages/VendorRegister";
@@ -34,53 +35,55 @@ function App() {
         {/* Public landing page */}
         <Route path="/" element={<Home />} />
 
-        {/* Auth pages */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+{/* Auth pages */}
+<Route path="/login" element={<LoginPage />} />
+<Route path="/signup" element={<SignupPage />} />
 
-        {/* Customer Dashboard */}
-        <Route
-          path="/customerdashboard"
-          element={
-            <>
-              <CNavbar />
-              <CustomerDashboard />
-            </>
-          }
-        />
+{/* Customer Dashboard */}
+<Route
+  path="/customerdashboard"
+  element={
+    <>
+      <CNavbar />
+      <CustomerDashboard />
+    </>
+  }
+/>
 
-        {/* Vendor Register Page */}
-        <Route
-          path="/vendor/register"
-          element={
-            <>
-              <Navbar />
-              <VendorRegister />
-            </>
-          }
-        />
+{/* Vendor Register Page */}
+<Route
+  path="/vendor/register"
+  element={
+    <>
+      <Navbar />
+      <VendorRegister />
+    </>
+  }
+/>
 
-        {/* Vehicle Details Page */}
-        <Route
-          path="/vehicle/:id"
-          element={
-            <>
-              <CNavbar />
-              <VehicleDetails />
-            </>
-          }
-        />
+{/* Vehicle Details Page */}
+<Route
+  path="/vehicle/:id"
+  element={
+    <>
+      <CNavbar />
+      <VehicleDetails />
+    </>
+  }
+/>
 
-        {/* Vendor Dashboard */}
-        <Route
-          path="/vendor/dashboard"
-          element={
-            <>
-              <CNavbar />
-              <VendorDashboard />
-            </>
-          }
-        />
+{/* Vendor Dashboard */}
+<Route
+  path="/vendor/dashboard"
+  element={
+    <>
+      <CNavbar />
+      <VendorDashboard />
+    </>
+  }
+/>
+
+<Route path="/mybookings" element={<MyBookings />} />
       </Routes>
     </BrowserRouter>
   );
