@@ -18,7 +18,7 @@ function CNavbar() {
       </div>
 
       <nav className="navbar-center">
-        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/customerdashboard" className="nav-link">Home</Link>
         <a href="#vehicles" className="nav-link">Vehicles</a>
         <Link to="/mybookings" className="nav-link">My Bookings</Link>
         <Link to="/profile" className="nav-link">Profile</Link>

@@ -82,6 +82,8 @@ function App() {
     </>
   }
 />
+// My Bookings Page
+
 
 <Route path="/mybookings" element={
   <>
