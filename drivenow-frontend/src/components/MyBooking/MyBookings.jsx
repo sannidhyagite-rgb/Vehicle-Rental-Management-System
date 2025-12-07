@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SummaryCards from "./SummaryCards";
+import SummaryCards from "./SummaryCards"
 import BookingTabs from "./BookingTabs";
 import BookingList from "./BookingList";
 import "./MyBooking.css";

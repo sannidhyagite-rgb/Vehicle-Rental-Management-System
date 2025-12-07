@@ -82,8 +82,17 @@ function App() {
     </>
   }
 />
+// My Bookings Page
+<Route
+  path="/my-bookings"
+  element={
+    <>
+      <CNavbar />
+      <MyBookings />
+    </>
+  }
+/>
 
-<Route path="/mybookings" element={<MyBookings />} />
       </Routes>
     </BrowserRouter>
   );
