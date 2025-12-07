@@ -1,0 +1,146 @@
+/* src/vendor/vehicles/vendor-vehicles.css */
+
+/* MyVehicles styles */
+.vendor-page-shell {
+    background: #f5f7fb;
+    min-height: 100vh;
+    padding: 28px 36px
+}
+
+.vendor-container {
+    max-width: 1200px;
+    margin: 0 auto
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-top: 6px
+}
+
+.filters-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04)
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #eef2f7
+}
+
+.select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #eef2f7
+}
+
+/* grid of cards */
+.vehicles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px
+}
+
+/* vehicle card */
+.vendor-vehicle-card {
+    display: flex;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.04)
+}
+
+.vendor-vehicle-card .left img {
+    width: 240px;
+    height: 160px;
+    object-fit: cover;
+    display: block
+}
+
+.vendor-vehicle-card .right {
+    padding: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.vendor-vehicle-card .row.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.vendor-vehicle-card .badge {
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px
+}
+
+.badge.available {
+    background: #ecfdf5;
+    color: #065f46
+}
+
+.badge.rented {
+    background: #eef2ff;
+    color: #2563eb
+}
+
+.meta {
+    color: #6b7280;
+    font-size: 13px
+}
+
+.rented {
+    background: #eef6ff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #2563eb
+}
+
+.row.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto
+}
+
+.price {
+    font-weight: 700;
+    color: #2563eb
+}
+
+.actions .action {
+    border: 1px solid #eef2f7;
+    background: #fff;
+    padding: 8px;
+    border-radius: 8px;
+    margin-left: 6px
+}
+
+@media (max-width:900px) {
+    .vehicles-grid {
+        grid-template-columns: 1fr
+    }
+
+    .vendor-vehicle-card .left img {
+        width: 140px;
+        height: 100px
+    }
+}
