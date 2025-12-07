@@ -1,0 +1,28 @@
+/* Main button styling */
+.vendor-btn {
+  border: 2px solid #0d6efd;       /* Bootstrap primary color */
+  color: #e4e9f1;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+/* Hover effect */
+.vendor-btn:hover {
+  background-color: #0d6efd;
+  color: #fff !important;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+/* For mobile screens */
+@media (max-width: 576px) {
+  .vendor-btn {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 16px;
+  }
+}
