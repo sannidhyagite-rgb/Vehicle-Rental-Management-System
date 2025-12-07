@@ -1,0 +1,63 @@
+{
+    "vendor": {
+        "id": "VND100",
+        "name": "DriveNow Rentals",
+        "businessName": "DriveNow Rentals Pvt Ltd",
+        "email": "vendor@example.com",
+        "phone": "+91-9876543210",
+        "address": "123 Market St, Pune, Maharashtra 411001",
+        "gst": "27ABCDE1234F1Z5",
+        "upi": "drivenow@upi",
+        "bankShort": "HDFC • ****5646",
+        "joined": "2023-05-15T00:00:00.000Z",
+        "totalVehicles": 12,
+        "totalEarnings": 85000,
+        "loyaltyPoints": 1250,
+        "rating": 4.8,
+        "verified": true,
+        "payoutMethods": [
+            {
+                "id": 1,
+                "type": "bank",
+                "label": "HDFC Bank — ****5646",
+                "details": "IFSC: HDFC0001234"
+            },
+            {
+                "id": 2,
+                "type": "upi",
+                "label": "UPI — drivenow@upi",
+                "details": "drivenow@upi"
+            }
+        ]
+    },
+    "payouts": [
+        {
+            "id": "P1001",
+            "date": "15-12-2024",
+            "method": "Bank (HDFC)",
+            "amount": 1240,
+            "status": "paid"
+        },
+        {
+            "id": "P1002",
+            "date": "08-12-2024",
+            "method": "UPI (drivenow@upi)",
+            "amount": 980,
+            "status": "paid"
+        }
+    ],
+    "loginHistory": [
+        {
+            "device": "Chrome on Windows",
+            "location": "Pune, IN",
+            "time": "Today, 9:12 AM",
+            "current": true
+        },
+        {
+            "device": "Safari on iPhone",
+            "location": "Mumbai, IN",
+            "time": "Yesterday, 2:30 PM",
+            "current": false
+        }
+    ]
+}

@@ -1,0 +1,82 @@
+/* src/vendor/notifications/vendor-notifications.css */
+
+.vendor-page-shell {
+    background: #f5f7fb;
+    min-height: 100vh;
+    padding: 28px 36px
+}
+
+.vendor-container {
+    max-width: 1200px;
+    margin: 0 auto
+}
+
+.badge-unread {
+    background: #ef4444;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    margin-left: 8px
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0
+}
+
+.spacer {
+    flex: 1
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+}
+
+.notif-card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04)
+}
+
+.notif-card.read {
+    opacity: 0.85
+}
+
+.notif-title {
+    font-weight: 700;
+    margin-bottom: 6px
+}
+
+.notif-body {
+    color: #6b7280;
+    margin-bottom: 10px
+}
+
+.notif-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+.btn.small {
+    padding: 8px 10px;
+    border-radius: 8px
+}
+
+.btn.ghost {
+    background: transparent;
+    border: 1px solid #f1f5f9
+}
+
+.time {
+    color: #9ca3af;
+    font-size: 13px
+}

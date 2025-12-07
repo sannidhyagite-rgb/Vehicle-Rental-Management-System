@@ -1,0 +1,59 @@
+/* src/vendor/earnings/vendor-earnings.css */
+
+/* reuse some styles from dashboard */
+.vendor-page-shell {
+    background: #f5f7fb;
+    min-height: 100vh;
+    padding: 28px 36px
+}
+
+.vendor-container {
+    max-width: 1200px;
+    margin: 0 auto
+}
+
+.metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px
+}
+
+.metric-card {
+    background: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06)
+}
+
+.charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px
+}
+
+.chart-card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06)
+}
+
+.panel {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #eef2f7;
+    text-align: left
+}
