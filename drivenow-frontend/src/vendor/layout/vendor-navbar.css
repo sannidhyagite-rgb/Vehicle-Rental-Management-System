@@ -1,0 +1,72 @@
+/* src/vendor/layout/vendor-navbar.css */
+
+.vendor-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 48px;
+    background: white;
+    border-bottom: 1px solid #eef2f7;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+}
+
+.vendor-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef2ff;
+    color: #2563eb
+}
+
+.logo-text {
+    font-weight: 700;
+    font-size: 18px
+}
+
+.vendor-nav-center {
+    display: flex;
+    gap: 36px
+}
+
+.vendor-nav-center .nav-link {
+    color: #6b7280;
+    text-decoration: none;
+    padding: 14px 0;
+    border-bottom: 3px solid transparent
+}
+
+.vendor-nav-center .nav-link.active {
+    color: #111827;
+    border-color: #2563eb
+}
+
+.vendor-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid #e6edf3;
+    padding: 8px 12px;
+    border-radius: 8px
+}
