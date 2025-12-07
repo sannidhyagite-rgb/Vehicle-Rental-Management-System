@@ -4,7 +4,7 @@ import React from "react";
 function WhyChoose() {
   return (
     <section className="why">
-      <h2 className="section-title">Why Choose RentEase?</h2>
+      <h2 className="section-title">Why Choose DriveNow?</h2>
       <p className="section-subtitle">
         Experience hassle-free car rental with our premium services
       </p>

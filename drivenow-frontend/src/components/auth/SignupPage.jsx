@@ -6,7 +6,7 @@ import "../../styles/auth.css";
 const roles = [
   { id: "customerRenter", label: "Customer - Rent vehicles" },
   { id: "vendor", label: "Vendor - List my vehicles" },
-  { id: "admin", label: "Admin - Manage platform" },
+  // Removed Admin role as requested
 ];
 
 function SignupPage() {
@@ -16,7 +16,8 @@ function SignupPage() {
   const handleSignup = (e) => {
     e.preventDefault();
 
-    // For now redirect to Login
+    // You would add real signup logic and assign role here
+    // After successful signup, redirect to login
     navigate("/login");
   };
 
