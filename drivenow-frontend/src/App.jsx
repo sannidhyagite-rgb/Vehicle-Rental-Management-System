@@ -83,7 +83,12 @@ function App() {
   }
 />
 
-<Route path="/mybookings" element={<MyBookings />} />
+<Route path="/mybookings" element={
+  <>
+    <CNavbar />
+    <MyBookings />
+  </>
+} />
       </Routes>
     </BrowserRouter>
   );
