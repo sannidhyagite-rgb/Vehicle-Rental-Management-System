@@ -1,3 +1,4 @@
+import React from 'react'
 import "./AdminDashboard.css";
 import { FaUsers, FaCar, FaCalendarAlt } from "react-icons/fa";
 import { MdAttachMoney } from "react-icons/md";
@@ -5,7 +6,7 @@ import { HiOutlineDocumentReport } from "react-icons/hi";
 import { IoChatbubbles } from "react-icons/io5";
 import { IoIosSettings } from "react-icons/io";
 
-export default function AdminDashboard() {
+function AdminDashboard() {
   return (
     <div className="dashboard">
 
@@ -71,3 +72,5 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+export default AdminDashboard;

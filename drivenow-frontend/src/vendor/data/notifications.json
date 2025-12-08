@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "title": "New Booking Request",
+        "message": "Atharv Patil has requested to book your BMW X5 for 5 days (Jan 15-20, 2024)",
+        "amount": 445,
+        "time": "2 hours ago",
+        "read": false
+    },
+    {
+        "id": 2,
+        "title": "Payment Received",
+        "message": "Payment of ₹395 received for Tesla Model 3 rental (Booking #122)",
+        "amount": 395,
+        "time": "4 hours ago",
+        "read": false
+    },
+    {
+        "id": 3,
+        "title": "New 5-Star Review",
+        "message": "Siddhesh Gajare left a 5-star review for Mercedes C-Class: \"Excellent car and great service!\"",
+        "time": "1 day ago",
+        "read": false
+    },
+    {
+        "id": 4,
+        "title": "Maintenance Reminder",
+        "message": "Honda Civic is due for maintenance in 3 days (500 miles)",
+        "time": "1 day ago",
+        "read": true
+    },
+    {
+        "id": 5,
+        "title": "Booking Cancelled",
+        "message": "Tanmay Tiwari cancelled his Audi Q7 booking (Jan 12-16). Cancellation fee: ₹50",
+        "amount": 50,
+        "time": "2 days ago",
+        "read": true
+    }
+]

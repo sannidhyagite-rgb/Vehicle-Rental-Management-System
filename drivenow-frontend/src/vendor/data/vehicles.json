@@ -1,0 +1,62 @@
+[
+    {
+        "id": "V100",
+        "name": "BMW X5",
+        "year": "2022",
+        "type": "SUV",
+        "fuel": "Petrol",
+        "ratePerDay": 89,
+        "status": "rented",
+        "image": "/assets/vehicles/v1.jpg",
+        "current": {
+            "customer": "Atharv Patil",
+            "from": "2024-01-15",
+            "to": "2024-01-20"
+        }
+    },
+    {
+        "id": "V101",
+        "name": "Tesla Model 3",
+        "year": "2023",
+        "type": "Electric",
+        "fuel": "Electric",
+        "ratePerDay": 79,
+        "status": "available",
+        "image": "/assets/vehicles/v2.jpg"
+    },
+    {
+        "id": "V102",
+        "name": "Mercedes C-Class",
+        "year": "2023",
+        "type": "Luxury",
+        "fuel": "Petrol",
+        "ratePerDay": 95,
+        "status": "rented",
+        "image": "/assets/vehicles/v3.jpg",
+        "current": {
+            "customer": "Siddhesh Gajare",
+            "from": "2024-01-18",
+            "to": "2024-01-25"
+        }
+    },
+    {
+        "id": "V103",
+        "name": "Honda Civic",
+        "year": "2022",
+        "type": "Economy",
+        "fuel": "Diesel",
+        "ratePerDay": 45,
+        "status": "maintenance",
+        "image": "/assets/vehicles/v4.jpg"
+    },
+    {
+        "id": "V104",
+        "name": "Audi Q7",
+        "year": "2023",
+        "type": "SUV",
+        "fuel": "Diesel",
+        "ratePerDay": 120,
+        "status": "available",
+        "image": "/assets/vehicles/v5.jpg"
+    }
+]

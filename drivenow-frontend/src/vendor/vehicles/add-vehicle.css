@@ -1,0 +1,65 @@
+/* src/vendor/vehicles/add-vehicle.css */
+
+.two-col {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px
+}
+
+.panel {
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.04)
+}
+
+.form-panel label {
+    display: block;
+    margin-bottom: 10px
+}
+
+.form-panel input,
+.form-panel select,
+.form-panel textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #eef2f7;
+    margin-top: 6px
+}
+
+.form-panel textarea {
+    min-height: 120px;
+    resize: vertical
+}
+
+.features-panel h4 {
+    margin-top: 0
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px
+}
+
+.feature-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #eef2f7;
+    cursor: pointer
+}
+
+.feature-pill.active {
+    background: #f0f9ff;
+    border-color: #c7e9ff
+}
+
+@media (max-width:900px) {
+    .two-col {
+        grid-template-columns: 1fr
+    }
+}

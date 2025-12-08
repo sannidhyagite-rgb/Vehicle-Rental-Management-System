@@ -1,0 +1,46 @@
+[
+    {
+        "id": "B1001",
+        "vehicle": "BMW X5",
+        "customer": "Atharv Patil",
+        "from": "2024-01-15",
+        "to": "2024-01-20",
+        "duration": 5,
+        "rate": 89,
+        "total": 445,
+        "status": "active"
+    },
+    {
+        "id": "B1002",
+        "vehicle": "Mercedes C-Class",
+        "customer": "Siddhesh Gajare",
+        "from": "2024-01-18",
+        "to": "2024-01-25",
+        "duration": 7,
+        "rate": 95,
+        "total": 665,
+        "status": "active"
+    },
+    {
+        "id": "B1003",
+        "vehicle": "Tesla Model 3",
+        "customer": "Prajwal Patel",
+        "from": "2024-01-10",
+        "to": "2024-01-15",
+        "duration": 5,
+        "rate": 79,
+        "total": 395,
+        "status": "completed"
+    },
+    {
+        "id": "B1004",
+        "vehicle": "Audi Q7",
+        "customer": "Tanmay Tiwari",
+        "from": "2024-01-12",
+        "to": "2024-01-16",
+        "duration": 4,
+        "rate": 120,
+        "total": 480,
+        "status": "completed"
+    }
+]

@@ -1,8 +1,9 @@
+import React from 'react';
 import "./Navbar.css"
 import { NavLink } from "react-router-dom";
 
 
-function Navbar(){
+function AdminNavbar(){
      const styles = {
     link: {
       textDecoration: "none",
@@ -15,10 +16,10 @@ function Navbar(){
     
             <ul className="nav-menu">
               <div className="navlist">
-              <NavLink to="/" style={styles.link} className={({isActive}) => isActive ? "active" : ""}>
+              <NavLink to="/admin/dashboard" style={styles.link} className={({isActive}) => isActive ? "active" : ""}>
                Dashboard
               </NavLink>
-              <NavLink to="/users" style={styles.link} className={({isActive}) => isActive ? "active" : ""}>
+              <NavLink to="/admin/users" style={styles.link} className={({isActive}) => isActive ? "active" : ""}>
                Users
               </NavLink>
               <li>Vehicles</li>
@@ -37,4 +38,4 @@ function Navbar(){
           
 }
 
-export default Navbar;
+export default AdminNavbar;
