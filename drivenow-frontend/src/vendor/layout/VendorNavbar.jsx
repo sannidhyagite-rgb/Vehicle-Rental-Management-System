@@ -24,7 +24,7 @@ export default function VendorNavbar() {
                     <span className="profile-icon">👤</span>
                     <span className="profile-name">atharv</span>
                 </NavLink>
-                <button className="btn btn-ghost">Logout</button>
+                <NavLink to="/" className="btn btn-ghost">Logout</NavLink>
             </div>
         </header>
     );
