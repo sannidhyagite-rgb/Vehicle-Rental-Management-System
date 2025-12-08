@@ -9,7 +9,7 @@ export default function VendorNavbar() {
         <header className="vendor-navbar">
             <div className="vendor-nav-left">
                 <div className="logo-icon">🚗</div>
-                <span className="logo-text">RentEase</span>
+                <span className="logo-text">DriveNow</span>
             </div>
 
             <nav className="vendor-nav-center">

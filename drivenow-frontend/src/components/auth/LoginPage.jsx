@@ -7,37 +7,35 @@ function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // ✅ Add error state
+  const [error, setError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
-    // ✅ THESE EXACT EMAILS WORK:
-    const mockCustomerEmails = [
-      "customer@example.com",
-      "john@example.com",
-      "customer@gmail.com"
-    ];
-    
-    const mockVendorEmails = [
-      "vendor@example.com", 
-      "johnvendor@gmail.com",
-      "vendor@auto.com"
-    ];
+    // -------------------------
+    // 🎯 TEST LOGIN ACCOUNTS
+    // -------------------------
 
-    // Case-insensitive check
+    const mockCustomerEmails = ["customer@example.com"];
+    const mockVendorEmails   = ["vendor@example.com"];
+
+    // ⭐ YOUR NEW ADMIN LOGIN (REQUESTED BY YOU)
+    const mockAdminEmails = ["superadmin@drivenow.com"];
+
     const userEmail = email.toLowerCase().trim();
 
     if (mockCustomerEmails.includes(userEmail)) {
-      console.log("✅ Customer login successful!");
       navigate("/customerdashboard");
+
     } else if (mockVendorEmails.includes(userEmail)) {
-      console.log("✅ Vendor login successful!");
       navigate("/vendor/dashboard");
+
+    } else if (mockAdminEmails.includes(userEmail)) {
+      navigate("/admin/dashboard");
+
     } else {
-      setError("Invalid email. Try: customer@example.com or vendor@example.com");
-      console.log("❌ Invalid login:", userEmail);
+      setError("Invalid email. Try customer@example.com or vendor@example.com or superadmin@drivenow.com");
     }
   };
 
@@ -45,12 +43,10 @@ function LoginPage() {
     <main className="auth-page">
       <div className="auth-card">
         <h1>Welcome back</h1>
-        <p className="auth-subtitle">Log in to continue to RentEase</p>
+        <p className="auth-subtitle">Log in to continue</p>
 
         {error && (
-          <div className="alert alert-danger mb-3" role="alert">
-            {error}
-          </div>
+          <div className="alert alert-danger mb-3">{error}</div>
         )}
 
         <form className="auth-form" onSubmit={handleLogin}>
@@ -58,7 +54,7 @@ function LoginPage() {
             Email
             <input
               type="email"
-              placeholder="customer@example.com"
+              placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -86,6 +82,7 @@ function LoginPage() {
             <strong>Test Accounts:</strong><br/>
             Customer: <code>customer@example.com</code><br/>
             Vendor: <code>vendor@example.com</code><br/>
+            Admin: <code>superadmin@drivenow.com</code><br/>
             <em>Any password works</em>
           </small>
         </div>
