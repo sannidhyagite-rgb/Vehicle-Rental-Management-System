@@ -1,7 +1,7 @@
 // src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/layout/Hero";
@@ -16,7 +16,7 @@ import CustomerDashboard from "./pages/CustomerDashboard";
 import VendorRegister from "./pages/VendorRegister";
 import VehicleDetails from "./pages/VehicleDetails";
 import CNavbar from "./components/layout/CNavbar";
-import VendorDashboard from "./pages/VendorDashboard";
+// import VendorDashboard from "./pages/VendorDashboard";
 
 /* Vendor pages */
 import VendorNavbar from "./vendor/layout/VendorNavbar";
