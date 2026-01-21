@@ -1,0 +1,115 @@
+.dashboard {
+  padding-bottom: 40px;
+}
+body {
+     background: #F9FAFB;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif; 
+}
+
+/* HEADER */
+.header {
+  padding: 30px 40px 10px;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.sub {
+  margin-top: 2px;
+  color: #777;
+}
+
+/* STATS SECTION */
+.stats-section {
+  display: flex;
+  gap: 25px;
+  padding: 20px 40px;
+}
+
+.stat-card {
+  flex: 1;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+}
+
+.label {
+  color: gray;
+  font-size: 15px;
+}
+
+.stat-card h2 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.growth {
+  margin-top: 5px;
+  color: rgb(28, 150, 28);
+  font-size: 13px;
+}
+
+.icon {
+  font-size: 48px;
+}
+
+.blue { color: #1a73e8; }
+.green { color: #0f9d58; }
+.yellow { color: goldenrod; }
+.purple { color: #9c27b0; }
+
+/* QUICK ACTIONS */
+
+.qa-container {
+    background-color: white;
+    height: 200px;
+    width: 1300px;
+    display:inline-block;
+    position: relative;
+    margin-left: 40px;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.qa-title {
+  margin: 20px 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.quick-actions {
+  margin: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.qa-btn {
+  background: white;
+  border: 1px solid #ddd;
+  width: 160px;
+  padding: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.qa-btn:hover {
+  background: #f5f5f5;
+}
