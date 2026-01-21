@@ -10,15 +10,17 @@ function Navbar() {
         <span className="logo-text">DriveNow</span>
       </div>
 
-      <nav className="navbar-center">
+     <nav className="navbar-center">
         <Link to="/" className="nav-link">
           Home
         </Link>
         <a href="#vehicles" className="nav-link">
           Vehicles
         </a>
+        <Link to="/mybookings" className="nav-link">
+          My Bookings
+        </Link>
       </nav>
-
       <div className="navbar-right">
         <Link to="/login" className="btn btn-ghost">
           Login
