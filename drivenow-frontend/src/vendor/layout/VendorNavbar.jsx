@@ -1,4 +1,5 @@
 // src/vendor/layout/VendorNavbar.jsx
+
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./vendor-navbar.css";
@@ -37,7 +38,7 @@ export default function VendorNavbar() {
       <div className="vendor-nav-right">
         <NavLink to="/vendor/profile" className="profile">
           <span className="profile-icon">👤</span>
-          <span className="profile-name">atharv</span>
+          <span className="profile-name">Siddhesh</span>
         </NavLink>
         <button className="btn btn-ghost" onClick={handleLogout}>
           Logout
