@@ -7,10 +7,10 @@ import VendorLayout from "./layouts/VendorLayout";
 
 /* Common */
 import Navbar from "./components/layout/Navbar";
+import CNavbar from "./components/layout/CNavbar";
 import Hero from "./components/layout/Hero";
 import WhyChoose from "./components/home/WhyChoose";
 import FeaturedVehicles from "./components/home/FeaturedVehicles";
-import CNavbar from "./components/layout/CNavbar";
 
 /* Auth */
 import LoginPage from "./components/auth/LoginPage";
@@ -30,12 +30,14 @@ import VendorNotifications from "./vendor/notifications/VendorNotifications";
 
 /* Customer */
 import CustomerDashboard from "./pages/CustomerDashboard";
+import CustomerProfile from "./pages/customer/CustomerProfile";
 import MyBookings from "./components/MyBooking/MyBookings";
 import VehicleDetails from "./pages/VehicleDetails";
 import VendorRegister from "./pages/VendorRegister";
 
 /* Security */
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminLicenseVerification from "./pages/admin/AdminLicenseVerification";
 
 /* Home */
 function Home() {
@@ -54,12 +56,12 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Public */}
+        {/* ================= PUBLIC ================= */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        {/* Admin */}
+        {/* ================= ADMIN ================= */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route
             path="dashboard"
@@ -77,9 +79,20 @@ function App() {
               </ProtectedRoute>
             }
           />
+          {/* <Route path="/admin/licenses" element={
+  <ProtectedRoute role="ADMIN">
+    <AdminLicenseApproval />
+  </ProtectedRoute>
+} /> */}
+          <Route
+            path="/admin/license-verification"
+            element={<AdminLicenseVerification />}
+          />
+
+
         </Route>
 
-        {/* Vendor */}
+        {/* ================= VENDOR ================= */}
         <Route path="/vendor" element={<VendorLayout />}>
           <Route
             path="dashboard"
@@ -131,7 +144,7 @@ function App() {
           />
         </Route>
 
-        {/* Customer */}
+        {/* ================= CUSTOMER ================= */}
         <Route
           path="/customerdashboard"
           element={
@@ -139,6 +152,18 @@ function App() {
               <>
                 <CNavbar />
                 <CustomerDashboard />
+              </>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/customer/profile"
+          element={
+            <ProtectedRoute role="CUSTOMER">
+              <>
+                <CNavbar />
+                <CustomerProfile />
               </>
             </ProtectedRoute>
           }
@@ -166,6 +191,7 @@ function App() {
           }
         />
 
+        {/* ================= VENDOR REGISTER ================= */}
         <Route
           path="/vendor/register"
           element={
@@ -176,7 +202,7 @@ function App() {
           }
         />
 
-        {/* Fallback */}
+        {/* ================= FALLBACK ================= */}
         <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>

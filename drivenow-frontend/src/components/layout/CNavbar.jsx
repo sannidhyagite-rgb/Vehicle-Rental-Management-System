@@ -5,8 +5,9 @@ function CNavbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // remove login status
-    localStorage.removeItem("isLoggedIn");
+    // correct logout for JWT-based auth
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
@@ -18,10 +19,21 @@ function CNavbar() {
       </div>
 
       <nav className="navbar-center">
-        <Link to="/customerdashboard" className="nav-link">Home</Link>
-        <a href="#vehicles" className="nav-link">Vehicles</a>
-        <Link to="/mybookings" className="nav-link">My Bookings</Link>
-        <Link to="/profile" className="nav-link">Profile</Link>
+        <Link to="/customerdashboard" className="nav-link">
+          Home
+        </Link>
+
+        <Link to="/customerdashboard#vehicles" className="nav-link">
+          Vehicles
+        </Link>
+
+        <Link to="/mybookings" className="nav-link">
+          My Bookings
+        </Link>
+
+        
+        <Link to="/customer/profile">Profile</Link>
+
       </nav>
 
       <div className="navbar-right">
