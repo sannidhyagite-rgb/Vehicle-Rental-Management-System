@@ -1,5 +1,5 @@
 // src/components/auth/LoginPage.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../api/axios";
 import "../../styles/auth.css";
@@ -12,50 +12,70 @@ function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
- const handleLogin = async (e) => {
-  e.preventDefault();
-  setError("");
-  setLoading(true);
+  /* ================= AUTO REDIRECT IF LOGGED IN ================= */
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
 
-  try {
-    // 1. Login
-    const loginRes = await api.post("/api/auth/login", {
-      email,
-      password,
-    });
-
-    const token = loginRes.data.token;
-    localStorage.setItem("token", token);
-
-    // 2. Get user profile
-    const userRes = await api.get("/api/users/me");
-    const user = userRes.data;
-
-    // 3. Store user (optional but useful)
-    localStorage.setItem("user", JSON.stringify(user));
-
-    // 4. Role-based navigation
-    if (user.role === "VENDOR") {
-      navigate("/vendor/dashboard");
-    } else if (user.role === "CUSTOMER") {
-      navigate("/customerdashboard");
-    } else if (user.role === "ADMIN") {
-      navigate("/admin/dashboard");
+    if (token && role) {
+      if (role === "ADMIN") {
+        navigate("/admin/dashboard", { replace: true });
+      } else if (role === "CUSTOMER") {
+        navigate("/customerdashboard", { replace: true });
+      } else if (role === "VENDOR") {
+        navigate("/vendor/dashboard", { replace: true });
+      }
     }
+  }, [navigate]);
 
-  } catch (err) {
-    setError("Invalid email or password");
-  } finally {
-    setLoading(false);
-  }
-};
+  /* ================= HANDLE LOGIN ================= */
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
+    try {
+      // 1️⃣ Admin login (email + password)
+      const loginRes = await api.post("/api/auth/login", {
+        email,
+        password,
+      });
+
+      const token = loginRes.data.token;
+      localStorage.setItem("token", token);
+
+      // 2️⃣ Fetch logged-in user
+      const userRes = await api.get("/api/users/me");
+      const user = userRes.data;
+
+      // 🔒 Admin-only guard
+      if (user.role !== "ADMIN") {
+        localStorage.removeItem("token");
+        setError("Unauthorized access. Admins only.");
+        return;
+      }
+
+      // 3️⃣ Store role (for ProtectedRoute + consistency)
+      localStorage.setItem("role", user.role);
+
+      // (Optional) store full user
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // 4️⃣ Redirect admin
+      navigate("/admin/dashboard", { replace: true });
+
+    } catch (err) {
+      setError("Invalid email or password");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="auth-page">
       <div className="auth-card">
-        <h1>Welcome back</h1>
-        <p className="auth-subtitle">Log in to continue</p>
+        <h1>Admin Login</h1>
+        <p className="auth-subtitle">Admins only</p>
 
         {error && <div className="alert alert-danger mb-3">{error}</div>}
 
@@ -64,7 +84,7 @@ function LoginPage() {
             Email
             <input
               type="email"
-              placeholder="Enter email"
+              placeholder="Enter admin email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -91,8 +111,9 @@ function LoginPage() {
           </button>
         </form>
 
+        {/* 👇 Customer/Vendor redirect */}
         <p className="auth-footer-text mt-4">
-          Don’t have an account? <Link to="/signup">Create one</Link>
+          Customer or Vendor? <Link to="/login-otp">Login with OTP</Link>
         </p>
       </div>
     </main>
