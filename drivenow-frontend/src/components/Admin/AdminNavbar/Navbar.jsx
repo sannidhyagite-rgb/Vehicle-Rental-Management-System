@@ -41,6 +41,16 @@ function AdminNavbar() {
             Users
           </NavLink>
 
+          <NavLink
+            to="/admin/license-verification"
+            style={styles.link}
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            License Verification
+          </NavLink>
+
+
+
           <li>Vehicles</li>
           <li>Bookings</li>
           <li>Reports</li>

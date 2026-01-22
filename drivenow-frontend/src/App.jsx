@@ -1,34 +1,45 @@
-// src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
-import AdminUser from "./components/Admin/AdminUser/AdminUser";
-import AdminNavbar from "./components/Admin/AdminNavbar/Navbar";
+/* Layouts */
+import AdminLayout from "./layouts/AdminLayout";
+import VendorLayout from "./layouts/VendorLayout";
 
+/* Common */
 import Navbar from "./components/layout/Navbar";
+import CNavbar from "./components/layout/CNavbar";
 import Hero from "./components/layout/Hero";
 import WhyChoose from "./components/home/WhyChoose";
 import FeaturedVehicles from "./components/home/FeaturedVehicles";
 
+/* Auth */
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
-import MyBookings from "./components/MyBooking/MyBookings";
 
-import CustomerDashboard from "./pages/CustomerDashboard";
-import VendorRegister from "./pages/VendorRegister";
-import VehicleDetails from "./pages/VehicleDetails";
-import CNavbar from "./components/layout/CNavbar";
+/* Admin */
+import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
+import AdminUser from "./components/Admin/AdminUser/AdminUser";
 
-// Vendor pages
-import VendorNavbar from "./vendor/layout/VendorNavbar";
+/* Vendor */
+import VendorDashboard from "./vendor/dashboard/VendorDashboard";
 import VendorProfile from "./vendor/profile/VendorProfile";
 import MyVehicles from "./vendor/vehicles/MyVehicles";
 import AddVehicle from "./vendor/vehicles/AddVehicle";
 import VendorEarnings from "./vendor/earnings/VendorEarnings";
 import VendorNotifications from "./vendor/notifications/VendorNotifications";
-import VendorDashboard from "./vendor/dashboard/VendorDashboard"; // ← IMPORTANT!!
 
+/* Customer */
+import CustomerDashboard from "./pages/CustomerDashboard";
+import CustomerProfile from "./pages/customer/CustomerProfile";
+import MyBookings from "./components/MyBooking/MyBookings";
+import VehicleDetails from "./pages/VehicleDetails";
+import VendorRegister from "./pages/VendorRegister";
+
+/* Security */
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminLicenseVerification from "./pages/admin/AdminLicenseVerification";
+
+/* Home */
 function Home() {
   return (
     <>
@@ -40,61 +51,158 @@ function Home() {
   );
 }
 
-function AdminShell({ element: Element }) {
-  return (
-    <>
-      <AdminNavbar />
-      <Element />
-    </>
-  );
-}
-
-function VendorShell({ element: Element }) {
-  return (
-    <>
-      <VendorNavbar />
-      <Element />
-    </>
-  );
-}
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Landing */}
+        {/* ================= PUBLIC ================= */}
         <Route path="/" element={<Home />} />
-
-        {/* Admin */}
-        <Route path="/admin/dashboard" element={<AdminShell element={AdminDashboard} />} />
-        <Route path="/admin/users" element={<AdminShell element={AdminUser} />} />
-
-        {/* Vendor */}
-        <Route path="/vendor/dashboard" element={<VendorShell element={VendorDashboard} />} />
-        <Route path="/vendor/profile" element={<VendorShell element={VendorProfile} />} />
-        <Route path="/vendor/vehicles" element={<VendorShell element={MyVehicles} />} />
-        <Route path="/vendor/vehicles/new" element={<VendorShell element={AddVehicle} />} />
-        <Route path="/vendor/earnings" element={<VendorShell element={VendorEarnings} />} />
-        <Route path="/vendor/notifications" element={<VendorShell element={VendorNotifications} />} />
-
-        {/* Auth */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        {/* Customer */}
-        <Route path="/customerdashboard" element={<><CNavbar /><CustomerDashboard /></>} />
+        {/* ================= ADMIN ================= */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute role="ADMIN">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="users"
+            element={
+              <ProtectedRoute role="ADMIN">
+                <AdminUser />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route path="/admin/licenses" element={
+  <ProtectedRoute role="ADMIN">
+    <AdminLicenseApproval />
+  </ProtectedRoute>
+} /> */}
+          <Route
+            path="/admin/license-verification"
+            element={<AdminLicenseVerification />}
+          />
 
-        {/* Vendor Register */}
-        <Route path="/vendor/register" element={<><Navbar /><VendorRegister /></>} />
 
-        {/* Vehicle Details */}
-        <Route path="/vehicle/:id" element={<><CNavbar /><VehicleDetails /></>} />
+        </Route>
 
-        {/* My Bookings */}
-        <Route path="/mybookings" element={<><CNavbar /><MyBookings /></>} />
+        {/* ================= VENDOR ================= */}
+        <Route path="/vendor" element={<VendorLayout />}>
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute role="VENDOR">
+                <VendorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute role="VENDOR">
+                <VendorProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="vehicles"
+            element={
+              <ProtectedRoute role="VENDOR">
+                <MyVehicles />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="vehicles/new"
+            element={
+              <ProtectedRoute role="VENDOR">
+                <AddVehicle />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="earnings"
+            element={
+              <ProtectedRoute role="VENDOR">
+                <VendorEarnings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="notifications"
+            element={
+              <ProtectedRoute role="VENDOR">
+                <VendorNotifications />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-        {/* 404 */}
+        {/* ================= CUSTOMER ================= */}
+        <Route
+          path="/customerdashboard"
+          element={
+            <ProtectedRoute role="CUSTOMER">
+              <>
+                <CNavbar />
+                <CustomerDashboard />
+              </>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/customer/profile"
+          element={
+            <ProtectedRoute role="CUSTOMER">
+              <>
+                <CNavbar />
+                <CustomerProfile />
+              </>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/mybookings"
+          element={
+            <ProtectedRoute role="CUSTOMER">
+              <>
+                <CNavbar />
+                <MyBookings />
+              </>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/vehicle/:id"
+          element={
+            <>
+              <CNavbar />
+              <VehicleDetails />
+            </>
+          }
+        />
+
+        {/* ================= VENDOR REGISTER ================= */}
+        <Route
+          path="/vendor/register"
+          element={
+            <>
+              <Navbar />
+              <VendorRegister />
+            </>
+          }
+        />
+
+        {/* ================= FALLBACK ================= */}
         <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>

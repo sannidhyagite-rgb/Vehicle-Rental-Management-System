@@ -1,43 +1,55 @@
 // src/components/auth/LoginPage.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../../api/axios";
 import "../../styles/auth.css";
 
 function LoginPage() {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setError("");
+ const handleLogin = async (e) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    // -------------------------
-    // 🎯 TEST LOGIN ACCOUNTS
-    // -------------------------
+  try {
+    // 1. Login
+    const loginRes = await api.post("/api/auth/login", {
+      email,
+      password,
+    });
 
-    const mockCustomerEmails = ["customer@example.com"];
-    const mockVendorEmails   = ["vendor@example.com"];
+    const token = loginRes.data.token;
+    localStorage.setItem("token", token);
 
-    // ⭐ YOUR NEW ADMIN LOGIN (REQUESTED BY YOU)
-    const mockAdminEmails = ["superadmin@drivenow.com"];
+    // 2. Get user profile
+    const userRes = await api.get("/api/users/me");
+    const user = userRes.data;
 
-    const userEmail = email.toLowerCase().trim();
+    // 3. Store user (optional but useful)
+    localStorage.setItem("user", JSON.stringify(user));
 
-    if (mockCustomerEmails.includes(userEmail)) {
-      navigate("/customerdashboard");
-
-    } else if (mockVendorEmails.includes(userEmail)) {
+    // 4. Role-based navigation
+    if (user.role === "VENDOR") {
       navigate("/vendor/dashboard");
-
-    } else if (mockAdminEmails.includes(userEmail)) {
+    } else if (user.role === "CUSTOMER") {
+      navigate("/customerdashboard");
+    } else if (user.role === "ADMIN") {
       navigate("/admin/dashboard");
-
-    } else {
-      setError("Invalid email. Try customer@example.com or vendor@example.com or superadmin@drivenow.com");
     }
-  };
+
+  } catch (err) {
+    setError("Invalid email or password");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <main className="auth-page">
@@ -45,9 +57,7 @@ function LoginPage() {
         <h1>Welcome back</h1>
         <p className="auth-subtitle">Log in to continue</p>
 
-        {error && (
-          <div className="alert alert-danger mb-3">{error}</div>
-        )}
+        {error && <div className="alert alert-danger mb-3">{error}</div>}
 
         <form className="auth-form" onSubmit={handleLogin}>
           <label>
@@ -72,23 +82,17 @@ function LoginPage() {
             />
           </label>
 
-          <button type="submit" className="btn btn-dark auth-btn w-100">
-            Login
+          <button
+            type="submit"
+            className="btn btn-dark auth-btn w-100"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <div className="mt-3 p-3 bg-light rounded">
-          <small className="text-muted">
-            <strong>Test Accounts:</strong><br/>
-            Customer: <code>customer@example.com</code><br/>
-            Vendor: <code>vendor@example.com</code><br/>
-            Admin: <code>superadmin@drivenow.com</code><br/>
-            <em>Any password works</em>
-          </small>
-        </div>
-
         <p className="auth-footer-text mt-4">
-          Don't have an account? <a href="/signup">Create one</a>
+          Don’t have an account? <Link to="/signup">Create one</Link>
         </p>
       </div>
     </main>

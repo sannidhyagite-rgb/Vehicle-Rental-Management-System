@@ -1,31 +1,49 @@
 // src/vendor/layout/VendorNavbar.jsx
 
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./vendor-navbar.css";
 
 export default function VendorNavbar() {
-    return (
-        <header className="vendor-navbar">
-            <div className="vendor-nav-left">
-                <div className="logo-icon">🚗</div>
-                <span className="logo-text">DriveNow</span>
-            </div>
+  const navigate = useNavigate();
 
-            <nav className="vendor-nav-center">
-                <NavLink to="/vendor/dashboard" className="nav-link">Dashboard</NavLink>
-                <NavLink to="/vendor/vehicles" className="nav-link">My Vehicles</NavLink>
-                <NavLink to="/vendor/earnings" className="nav-link">Earnings</NavLink>
-                <NavLink to="/vendor/notifications" className="nav-link">Notifications</NavLink>
-            </nav>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
-            <div className="vendor-nav-right">
-                <NavLink to="/vendor/profile" className="profile">
-                    <span className="profile-icon">👤</span>
-                    <span className="profile-name">atharv</span>
-                </NavLink>
-                <NavLink to="/" className="btn btn-ghost">Logout</NavLink>
-            </div>
-        </header>
-    );
+  return (
+    <header className="vendor-navbar">
+      <div className="vendor-nav-left">
+        <div className="logo-icon">🚗</div>
+        <span className="logo-text">DriveNow</span>
+      </div>
+
+      <nav className="vendor-nav-center">
+        <NavLink to="/vendor/dashboard" className="nav-link">
+          Dashboard
+        </NavLink>
+        <NavLink to="/vendor/vehicles" className="nav-link">
+          My Vehicles
+        </NavLink>
+        <NavLink to="/vendor/earnings" className="nav-link">
+          Earnings
+        </NavLink>
+        <NavLink to="/vendor/notifications" className="nav-link">
+          Notifications
+        </NavLink>
+      </nav>
+
+      <div className="vendor-nav-right">
+        <NavLink to="/vendor/profile" className="profile">
+          <span className="profile-icon">👤</span>
+          <span className="profile-name">Siddhesh</span>
+        </NavLink>
+        <button className="btn btn-ghost" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </header>
+  );
 }
