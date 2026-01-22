@@ -1,5 +1,7 @@
 // src/vendor/vehicles/AddVehicle.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addVehicle } from "../api/vendorVehicleApi";
 import "./add-vehicle.css";
 
 const FEATURES = {
@@ -63,6 +65,10 @@ export default function AddVehicle() {
 
     features: [],
   });
+
+  const navigate = useNavigate();
+  const vendorId = 1; // TEMP → JWT later
+
 
   const toggleFeature = (code) => {
     setForm((prev) => ({
@@ -236,9 +242,21 @@ export default function AddVehicle() {
 
             <br />
 
-            <button className="btn btn-primary" type="button">
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={async () => {
+                try {
+                  await addVehicle(vendorId, form);
+                  navigate("/vendor/vehicles");
+                } catch (err) {
+                  alert("Failed to add vehicle");
+                }
+              }}
+            >
               Save Vehicle
             </button>
+
           </form>
 
           {/* ================= FEATURES ================= */}
@@ -252,9 +270,8 @@ export default function AddVehicle() {
                   {items.map((f) => (
                     <label
                       key={f.code}
-                      className={`feature-pill ${
-                        form.features.includes(f.code) ? "active" : ""
-                      }`}
+                      className={`feature-pill ${form.features.includes(f.code) ? "active" : ""
+                        }`}
                     >
                       <input
                         type="checkbox"

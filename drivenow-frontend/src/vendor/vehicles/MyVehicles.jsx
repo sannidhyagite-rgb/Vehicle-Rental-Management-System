@@ -3,15 +3,18 @@
 import React, { useState, useEffect } from "react";
 import VehicleCardVendor from "./VehicleCardVendor";
 import "./vendor-vehicles.css";
-import vehicles from "../data/vehicles.json";
+// import vehicles from "../data/vehicles.json";
+import { fetchMyVehicles } from "../api/vendorVehicleApi";
 import { Link } from "react-router-dom";
 
 export default function MyVehicles() {
   const [list, setList] = useState([]);
+  const vendorId = 1; // TEMP → JWT later
 
   useEffect(() => {
-    // load dummy data
-    setList(vehicles);
+    fetchMyVehicles(vendorId)
+      .then(data => setList(data))
+      .catch(() => alert("Failed to load vehicles"));
   }, []);
 
   return (
@@ -23,28 +26,16 @@ export default function MyVehicles() {
             <p className="subtitle">Manage your vehicle fleet and track performance</p>
           </div>
           <div>
-            <Link to="/vendor/vehicles/new" className="btn btn-primary">+ Add New Vehicle</Link>
+            <Link to="/vendor/vehicles/new" className="btn btn-primary">
+              + Add New Vehicle
+            </Link>
           </div>
         </div>
 
-        <div className="filters-card">
-          <input
-            placeholder="Search vehicles..."
-            className="search-input"
-          />
-
-          <select className="select" defaultValue="">
-            <option value="" disabled>
-              Status
-            </option>
-            <option value="all">All</option>
-            <option value="available">Available</option>
-            <option value="rented">Rented</option>
-          </select>
-        </div>
-
         <div className="vehicles-grid">
-          {list.map(v => <VehicleCardVendor key={v.id} v={v} />)}
+          {list.map(v => (
+            <VehicleCardVendor key={v.id} v={v} />
+          ))}
         </div>
       </div>
     </div>
