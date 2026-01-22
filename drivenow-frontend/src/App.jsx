@@ -15,10 +15,12 @@ import FeaturedVehicles from "./components/home/FeaturedVehicles";
 /* Auth */
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
+import LoginOtp from "./components/auth/LoginOtp";
 
 /* Admin */
 import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
 import AdminUser from "./components/Admin/AdminUser/AdminUser";
+import AdminLicenseVerification from "./pages/admin/AdminLicenseVerification";
 
 /* Vendor */
 import VendorDashboard from "./vendor/dashboard/VendorDashboard";
@@ -37,7 +39,6 @@ import VendorRegister from "./pages/VendorRegister";
 
 /* Security */
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AdminLicenseVerification from "./pages/admin/AdminLicenseVerification";
 
 /* Home */
 function Home() {
@@ -58,7 +59,9 @@ function App() {
 
         {/* ================= PUBLIC ================= */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin/login" element={<LoginPage />} />
+
+        <Route path="/login" element={<LoginOtp />} />
         <Route path="/signup" element={<SignupPage />} />
 
         {/* ================= ADMIN ================= */}
@@ -79,17 +82,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/admin/licenses" element={
-  <ProtectedRoute role="ADMIN">
-    <AdminLicenseApproval />
-  </ProtectedRoute>
-} /> */}
           <Route
-            path="/admin/license-verification"
-            element={<AdminLicenseVerification />}
+            path="license-verification"
+            element={
+              <ProtectedRoute role="ADMIN">
+                <AdminLicenseVerification />
+              </ProtectedRoute>
+            }
           />
-
-
         </Route>
 
         {/* ================= VENDOR ================= */}
