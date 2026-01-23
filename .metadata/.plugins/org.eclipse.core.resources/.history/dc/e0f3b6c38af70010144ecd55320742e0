@@ -1,0 +1,53 @@
+package com.project.backend.Booking.Controller;
+
+
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import com.project.backend.Booking.DTO.BookingResponseDTO;
+import com.project.backend.Booking.DTO.BookingSummaryDTO;
+import com.project.backend.Booking.Service.BookingService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/bookings")
+@CrossOrigin
+@RequiredArgsConstructor
+public class BookingController {
+    
+	
+    private final BookingService bookingService;
+
+    // 🔹 Summary cards (top section)
+    @GetMapping("/summary/{userId}")
+    public BookingSummaryDTO getSummary(@PathVariable Long userId) {
+        return bookingService.getBookingSummary(userId);
+    }
+
+    // 🔹 Upcoming bookings
+    @GetMapping("/upcoming/{userId}")
+    public List<BookingResponseDTO> upcoming(@PathVariable Long userId) {
+        return bookingService.getUpcomingBookings(userId);
+    }
+
+    // 🔹 Completed bookings
+    @GetMapping("/completed/{userId}")
+    public List<BookingResponseDTO> completed(@PathVariable Long userId) {
+        return bookingService.getCompletedBookings(userId);
+    }
+
+    // 🔹 Get booking for MODIFY
+    @GetMapping("/{bookingId}")
+    public BookingResponseDTO getBooking(@PathVariable Long bookingId) {
+        return bookingService.getBookingById(bookingId);
+    }
+
+    // 🔹 Cancel booking
+    @PutMapping("/cancel/{bookingId}")
+    public void cancel(@PathVariable Long bookingId) {
+        bookingService.cancelBooking(bookingId);
+    }
+}

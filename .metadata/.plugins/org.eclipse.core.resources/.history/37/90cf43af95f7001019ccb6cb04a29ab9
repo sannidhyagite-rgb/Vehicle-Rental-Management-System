@@ -1,0 +1,5 @@
+package com.project.backend.user.model;
+
+public class Vehicle {
+
+}

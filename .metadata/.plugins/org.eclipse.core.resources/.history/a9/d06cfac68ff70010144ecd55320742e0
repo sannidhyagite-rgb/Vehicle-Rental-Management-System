@@ -1,0 +1,40 @@
+package com.project.backend.Booking;
+
+import java.time.LocalDateTime;
+
+import com.project.backend.Vehicle.Vehicle;
+import com.project.backend.user.model.User;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = "bookings")
+@Data
+public class Booking {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Vehicle vehicle;
+
+    private LocalDateTime pickupDateTime;
+   
+
+    private LocalDateTime returnDateTime;
+    
+
+    private String location;
+    private int days;
+    private double totalCost;
+    
+    
+    private Status status; // UPCOMING, COMPLETED, CANCELLED
+    private LocalDateTime bookingDateTime;
+}
+

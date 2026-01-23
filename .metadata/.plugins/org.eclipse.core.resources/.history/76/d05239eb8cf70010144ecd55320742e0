@@ -1,0 +1,25 @@
+package com.project.backend.Booking.DTO;
+
+
+import com.project.backend.Vehicle.VehicleType;
+
+import lombok.Data;
+
+@Data
+public class BookingResponseDTO {
+
+    private Long bookingId;
+
+    private String carName;
+    private String carType;
+
+    private String pickupDateTime;
+    private String returnDateTime;
+
+    private String location;
+    private int days;
+    private double totalCost;
+
+    private String status; // UPCOMING / COMPLETED / CANCELLED
+}
+

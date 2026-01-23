@@ -1,0 +1,5 @@
+package com.project.backend.Vehicle.entity;
+
+public class Vehicle {
+
+}

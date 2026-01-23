@@ -1,0 +1,145 @@
+.booking-wrapper {
+  background: #f7f9fc;
+  padding: 24px;
+  padding-bottom: 120px; /* IMPORTANT */
+  min-height: 100vh;
+}
+
+
+.back-link {
+  font-size: 14px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.stepper {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.step {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.step.active {
+  color: #2563eb;
+}
+
+.step span {
+  background: #2563eb;
+  color: white;
+  border-radius: 50%;
+  padding: 6px 10px;
+  margin-right: 6px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  margin-bottom: 16px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #f1f3f6;
+}
+
+.sub {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.addon-row {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.price {
+  font-weight: 500;
+}
+
+.summary-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.insurance {
+  margin-top: 10px;
+  color: #2563eb;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.4),
+    transparent
+  );
+
+  padding: 20px 0;
+  display: flex;
+  justify-content: left;
+  z-index: 1000;
+}
+
+
+
+.bottom-bar button {
+  width: 100%;
+  max-width: 760px;   /* 👈 MATCHES LEFT COLUMN / ADDITIONAL OPTIONS */
+  padding: 16px;
+
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.booking-wrapper {
+  padding-bottom: 140px; /* space for fixed button */
+}
+
