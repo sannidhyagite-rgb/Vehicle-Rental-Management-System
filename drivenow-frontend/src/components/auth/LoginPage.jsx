@@ -1,64 +1,90 @@
 // src/components/auth/LoginPage.jsx
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../../api/axios";
 import "../../styles/auth.css";
 
 function LoginPage() {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // ✅ Add error state
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  /* ================= AUTO REDIRECT IF LOGGED IN ================= */
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    if (token && role) {
+      if (role === "ADMIN") {
+        navigate("/admin/dashboard", { replace: true });
+      } else if (role === "CUSTOMER") {
+        navigate("/customerdashboard", { replace: true });
+      } else if (role === "VENDOR") {
+        navigate("/vendor/dashboard", { replace: true });
+      }
+    }
+  }, [navigate]);
+
+  /* ================= HANDLE LOGIN ================= */
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
+    setLoading(true);
 
-    // ✅ THESE EXACT EMAILS WORK:
-    const mockCustomerEmails = [
-      "customer@example.com",
-      "john@example.com",
-      "customer@gmail.com"
-    ];
-    
-    const mockVendorEmails = [
-      "vendor@example.com", 
-      "johnvendor@gmail.com",
-      "vendor@auto.com"
-    ];
+    try {
+      // 1️⃣ Admin login (email + password)
+      const loginRes = await api.post("/api/auth/login", {
+        email,
+        password,
+      });
 
-    // Case-insensitive check
-    const userEmail = email.toLowerCase().trim();
+      const token = loginRes.data.token;
+      localStorage.setItem("token", token);
 
-    if (mockCustomerEmails.includes(userEmail)) {
-      console.log("✅ Customer login successful!");
-      navigate("/customerdashboard");
-    } else if (mockVendorEmails.includes(userEmail)) {
-      console.log("✅ Vendor login successful!");
-      navigate("/vendor/dashboard");
-    } else {
-      setError("Invalid email. Try: customer@example.com or vendor@example.com");
-      console.log("❌ Invalid login:", userEmail);
+      // 2️⃣ Fetch logged-in user
+      const userRes = await api.get("/api/users/me");
+      const user = userRes.data;
+
+      // 🔒 Admin-only guard
+      if (user.role !== "ADMIN") {
+        localStorage.removeItem("token");
+        setError("Unauthorized access. Admins only.");
+        return;
+      }
+
+      // 3️⃣ Store role (for ProtectedRoute + consistency)
+      localStorage.setItem("role", user.role);
+
+      // (Optional) store full user
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // 4️⃣ Redirect admin
+      navigate("/admin/dashboard", { replace: true });
+
+    } catch (err) {
+      setError("Invalid email or password");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <main className="auth-page">
       <div className="auth-card">
-        <h1>Welcome back</h1>
-        <p className="auth-subtitle">Log in to continue to RentEase</p>
+        <h1>Admin Login</h1>
+        <p className="auth-subtitle">Admins only</p>
 
-        {error && (
-          <div className="alert alert-danger mb-3" role="alert">
-            {error}
-          </div>
-        )}
+        {error && <div className="alert alert-danger mb-3">{error}</div>}
 
         <form className="auth-form" onSubmit={handleLogin}>
           <label>
             Email
             <input
               type="email"
-              placeholder="customer@example.com"
+              placeholder="Enter admin email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -76,22 +102,18 @@ function LoginPage() {
             />
           </label>
 
-          <button type="submit" className="btn btn-dark auth-btn w-100">
-            Login
+          <button
+            type="submit"
+            className="btn btn-dark auth-btn w-100"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <div className="mt-3 p-3 bg-light rounded">
-          <small className="text-muted">
-            <strong>Test Accounts:</strong><br/>
-            Customer: <code>customer@example.com</code><br/>
-            Vendor: <code>vendor@example.com</code><br/>
-            <em>Any password works</em>
-          </small>
-        </div>
-
+        {/* 👇 Customer/Vendor redirect */}
         <p className="auth-footer-text mt-4">
-          Don't have an account? <a href="/signup">Create one</a>
+          Customer or Vendor? <Link to="/login-otp">Login with OTP</Link>
         </p>
       </div>
     </main>
