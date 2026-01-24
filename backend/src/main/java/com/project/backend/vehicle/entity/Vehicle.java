@@ -2,9 +2,10 @@ package com.project.backend.vehicle.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.List;
+
 import com.project.backend.user.model.User;
+import com.project.backend.vehicle.enums.VehicleStatus;
 
 @Entity
 @Table(name = "vehicles")
@@ -15,6 +16,7 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Basic info
     private String company;
     private String model;
     private int year;
@@ -24,9 +26,11 @@ public class Vehicle {
     private double ratePerDay;
     private String description;
 
-    private String status; // AVAILABLE, RENTED
+    // 🔥 Admin approval status
+    @Enumerated(EnumType.STRING)
+    private VehicleStatus status;   // PENDING, APPROVED, REJECTED
 
-    // verification
+    // Verification / documents
     private String registrationNumber;
     private String rcNumber;
     private String insuranceExpiry;
@@ -34,10 +38,11 @@ public class Vehicle {
     private String chassisLast4;
     private String engineNumber;
 
-    // features (ABS, AC, BT etc.)
+    // Features
     @ElementCollection
     private List<String> features;
 
+    // Vendor mapping
     @ManyToOne
     @JoinColumn(name = "vendor_id")
     private User vendor;

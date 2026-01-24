@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // 1️⃣ No Authorization header → continue
+        // 1️⃣ No Authorization header
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -48,19 +48,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 4️⃣ Extract email from token
+        // 4️⃣ Extract email
         String email = jwtUtil.extractEmail(token);
 
-        // 5️⃣ Load user from DB
+        // 5️⃣ Load user
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 6️⃣ Attach ROLE (🔥 MATCHES hasRole)
+        // ✅ 6️⃣ Attach authority (NO ROLE_ PREFIX)
         List<SimpleGrantedAuthority> authorities = List.of(
-                new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
+                new SimpleGrantedAuthority(user.getRole().name())
         );
 
         // 7️⃣ Create authentication

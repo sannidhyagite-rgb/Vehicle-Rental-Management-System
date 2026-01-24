@@ -5,6 +5,7 @@ import com.project.backend.vehicle.dto.AddVehicleRequestDTO;
 import com.project.backend.vehicle.dto.VendorVehicleResponseDTO;
 import com.project.backend.vehicle.entity.Vehicle;
 import com.project.backend.vehicle.entity.VehicleImage;
+import com.project.backend.vehicle.enums.VehicleStatus;
 import com.project.backend.vehicle.repository.VehicleImageRepository;
 import com.project.backend.vehicle.repository.VehicleRepository;
 import com.project.backend.vehicle.service.VendorVehicleService;
@@ -38,7 +39,7 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
     @Override
     public void addVehicle(AddVehicleRequestDTO dto, List<MultipartFile> images) {
 
-        // 🔐 Get logged-in vendor from JWT
+        // 🔐 Get logged-in vendor
         User vendor = userRepository.findByEmail(
                 CurrentUserUtil.getLoggedInEmail()
         ).orElseThrow(() -> new RuntimeException("Logged-in vendor not found"));
@@ -61,12 +62,13 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
         vehicle.setChassisLast4(dto.getChassisLast4());
         vehicle.setEngineNumber(dto.getEngineNumber());
 
-        vehicle.setStatus("AVAILABLE");
+        // 🔥 IMPORTANT: Admin approval workflow
+        vehicle.setStatus(VehicleStatus.PENDING);
         vehicle.setVendor(vendor);
 
         Vehicle savedVehicle = vehicleRepository.save(vehicle);
 
-        // 📷 Store images in DB (BLOB)
+        // 📷 Store images
         if (images != null && !images.isEmpty()) {
             for (MultipartFile img : images) {
                 try {
@@ -102,10 +104,10 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
                     dto.setId(vehicle.getId());
                     dto.setTitle(vehicle.getCompany() + " " + vehicle.getModel());
                     dto.setSubtitle(vehicle.getYear() + " • " + vehicle.getFuel());
-                    dto.setStatus(vehicle.getStatus());
+                    dto.setStatus(vehicle.getStatus().name());
                     dto.setRatePerDay(vehicle.getRatePerDay());
 
-                    // ✅ First image only (vendor UI)
+                    // First image only
                     dto.setImages(
                             vehicleImageRepository.findByVehicle(vehicle)
                                     .stream()

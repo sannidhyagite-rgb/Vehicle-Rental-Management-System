@@ -24,59 +24,61 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // ✅ REST API → CSRF OFF
+            // Disable CSRF (JWT based)
             .csrf(csrf -> csrf.disable())
 
-            // ✅ CORS ENABLED
+            // Enable CORS
             .cors(cors -> {})
 
             .authorizeHttpRequests(auth -> auth
 
-                // ✅ SWAGGER (PUBLIC)
+                // ===== ALLOW PREFLIGHT =====
+                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+
+                // ===== PUBLIC ENDPOINTS =====
                 .requestMatchers(
                     "/swagger-ui.html",
                     "/swagger-ui/**",
-                    "/v3/api-docs/**"
+                    "/v3/api-docs/**",
+                    "/api/auth/**"
                 ).permitAll()
 
-                // ✅ AUTH APIs
-                .requestMatchers("/api/auth/**").permitAll()
+                // ===== ROLE BASED ACCESS =====
+                .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/vendor/**").hasAuthority("VENDOR")
+                .requestMatchers("/api/customer/**").hasAuthority("CUSTOMER")
+                .requestMatchers("/api/license/**").hasAuthority("CUSTOMER")
 
-                // ✅ ADMIN APIs
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                // ✅ USER APIs
+                // ===== AUTHENTICATED =====
                 .requestMatchers("/api/users/**").authenticated()
 
-                // ✅ LICENSE APIs (🔥 FIXED)
-                .requestMatchers("/api/license/**").hasRole("CUSTOMER")
-
-                // ✅ EVERYTHING ELSE
+                // ===== EVERYTHING ELSE =====
                 .anyRequest().authenticated()
             )
 
-            // ✅ JWT → STATELESS
+            // Stateless session
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // ✅ JWT FILTER
+            // JWT filter
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // ✅ CORS CONFIG
+    // ===== CORS CONFIG =====
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
 
+        CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:5173"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
         return source;

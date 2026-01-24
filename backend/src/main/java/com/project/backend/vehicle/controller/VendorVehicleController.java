@@ -4,6 +4,7 @@ import com.project.backend.vehicle.dto.AddVehicleRequestDTO;
 import com.project.backend.vehicle.dto.VendorVehicleResponseDTO;
 import com.project.backend.vehicle.service.VendorVehicleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/vendor")
 @CrossOrigin
+@PreAuthorize("hasAuthority('VENDOR')")
 public class VendorVehicleController {
 
     private final VendorVehicleService service;
