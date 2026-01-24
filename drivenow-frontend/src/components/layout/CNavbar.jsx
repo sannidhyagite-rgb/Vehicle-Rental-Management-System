@@ -1,15 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../utils/auth";
 
 function CNavbar() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // correct logout for JWT-based auth
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+ 
 
   return (
     <header className="navbar">
@@ -37,8 +33,8 @@ function CNavbar() {
       </nav>
 
       <div className="navbar-right">
-        <button className="btn btn-danger" onClick={handleLogout}>
-          Logout
+        <button className="btn btn-danger" onClick={() => logout(navigate)}>
+         Logout
         </button>
       </div>
     </header>
