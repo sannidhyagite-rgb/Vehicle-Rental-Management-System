@@ -1,28 +1,16 @@
-const BASE_URL = "http://localhost:8080";
+import api from "./axios";
 
-function getAuthHeaders() {
-  const token = localStorage.getItem("token");
-
-  return {
-    Authorization: `Bearer ${token}`
-  };
-}
-
-// ================= GET MY VEHICLES =================
-export async function fetchMyVehicles() {
-  const res = await fetch(`${BASE_URL}/api/vendor/vehicles`, {
-    headers: getAuthHeaders()
-  });
-
-  if (!res.ok) throw new Error("Failed to fetch vehicles");
-  return res.json();
-}
+// ================= GET VENDOR VEHICLES =================
+export const fetchMyVehicles = async () => {
+  const response = await api.get("/vendor/vehicles");
+  return response.data;
+};
 
 // ================= ADD VEHICLE =================
-export async function addVehicle(form) {
+export const addVehicle = async (form) => {
   const formData = new FormData();
 
-  const data = {
+  const payload = {
     company: form.company,
     model: form.model,
     year: Number(form.year),
@@ -37,23 +25,31 @@ export async function addVehicle(form) {
     pucExpiry: form.pucExpiry,
     chassisLast4: form.chassisLast4,
     engineNumber: form.engineNumber,
-    features: form.features
+    features: form.features || [],
   };
 
+  // JSON data
   formData.append(
     "data",
-    new Blob([JSON.stringify(data)], { type: "application/json" })
+    new Blob([JSON.stringify(payload)], {
+      type: "application/json",
+    })
   );
 
-  form.vehicleImages.forEach(img => {
-    formData.append("images", img);
+  // Vehicle images
+  if (Array.isArray(form.vehicleImages)) {
+    form.vehicleImages.forEach((file) => {
+      if (file) {
+        formData.append("images", file);
+      }
+    });
+  }
+
+  const response = await api.post("/vendor/vehicles", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
 
-  const res = await fetch(`${BASE_URL}/api/vendor/vehicles`, {
-    method: "POST",
-    headers: getAuthHeaders(), // 🔥 REQUIRED
-    body: formData
-  });
-
-  if (!res.ok) throw new Error("Failed to add vehicle");
-}
+  return response.data;
+};

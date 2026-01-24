@@ -15,23 +15,23 @@ function LoginOtp() {
   const [timer, setTimer] = useState(30);
   const [canResend, setCanResend] = useState(false);
 
-  // 🔐 Remember Me
+  // 🔐 Remember Me (UI only)
   const [rememberMe, setRememberMe] = useState(true);
 
   const navigate = useNavigate();
 
   /* ================= AUTO REDIRECT IF LOGGED IN ================= */
   useEffect(() => {
-    const token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
-    const role =
-      localStorage.getItem("role") || sessionStorage.getItem("role");
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
 
     if (token && role) {
       if (role === "CUSTOMER") {
         navigate("/customerdashboard", { replace: true });
       } else if (role === "VENDOR") {
         navigate("/vendor/dashboard", { replace: true });
+      } else if (role === "ADMIN") {
+        navigate("/admin/dashboard", { replace: true });
       }
     }
   }, [navigate]);
@@ -45,7 +45,7 @@ function LoginOtp() {
 
     try {
       setLoading(true);
-      const res = await api.post("/api/auth/otp/send", { mobileNumber });
+      const res = await api.post("/auth/otp/send", { mobileNumber });
 
       // DEV ONLY
       setGeneratedOtp(res.data.otp);
@@ -82,22 +82,23 @@ function LoginOtp() {
     }
 
     try {
-      const res = await api.post("/api/auth/otp/verify", {
+      const res = await api.post("/auth/otp/verify", {
         mobileNumber,
         otp,
       });
 
       const { token, role } = res.data;
 
-      // 🔐 Remember Me logic
-      const storage = rememberMe ? localStorage : sessionStorage;
-      storage.setItem("token", token);
-      storage.setItem("role", role);
+      // 🔐 ALWAYS store in localStorage (axios reads from here)
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
 
       if (role === "CUSTOMER") {
         navigate("/customerdashboard", { replace: true });
       } else if (role === "VENDOR") {
         navigate("/vendor/dashboard", { replace: true });
+      } else if (role === "ADMIN") {
+        navigate("/admin/dashboard", { replace: true });
       } else {
         navigate("/", { replace: true });
       }
@@ -122,7 +123,7 @@ function LoginOtp() {
             onChange={(e) => setMobileNumber(e.target.value)}
           />
 
-          {/* Remember Me */}
+          {/* Remember Me (UI only) */}
           <div className="form-check mb-3">
             <input
               className="form-check-input"
@@ -170,7 +171,6 @@ function LoginOtp() {
                     onChange={(e) => setOtp(e.target.value)}
                   />
 
-                  {/* Resend OTP */}
                   <div className="text-center">
                     {canResend ? (
                       <button className="btn btn-link" onClick={sendOtp}>

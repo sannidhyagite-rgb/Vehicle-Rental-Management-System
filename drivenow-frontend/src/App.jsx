@@ -40,6 +40,7 @@ import VendorRegister from "./pages/VendorRegister";
 
 /* Security */
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminVehicles from "./pages/admin/vehicles/AdminVehicles";
 
 
 /* Home */
@@ -94,6 +95,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="vehicles"
+            element={
+              <ProtectedRoute role="ADMIN">
+                <AdminVehicles />
+              </ProtectedRoute>
+            }
+          />
+
         </Route>
 
         {/* ================= VENDOR ================= */}

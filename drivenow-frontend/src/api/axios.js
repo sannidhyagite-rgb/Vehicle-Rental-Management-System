@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080", // Spring Boot backend
+  baseURL: "http://localhost:8080/api", // ✅ FIXED
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Automatically attach JWT token to every request
+// Attach JWT token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -19,12 +19,11 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Global response error handling (optional but recommended)
+// Optional global error handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
