@@ -1,12 +1,25 @@
 const BASE_URL = "http://localhost:8080";
 
-export async function fetchMyVehicles(vendorId) {
-  const res = await fetch(`${BASE_URL}/api/vendor/${vendorId}/vehicles`);
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+
+  return {
+    Authorization: `Bearer ${token}`
+  };
+}
+
+// ================= GET MY VEHICLES =================
+export async function fetchMyVehicles() {
+  const res = await fetch(`${BASE_URL}/api/vendor/vehicles`, {
+    headers: getAuthHeaders()
+  });
+
   if (!res.ok) throw new Error("Failed to fetch vehicles");
   return res.json();
 }
 
-export async function addVehicle(vendorId, form) {
+// ================= ADD VEHICLE =================
+export async function addVehicle(form) {
   const formData = new FormData();
 
   const data = {
@@ -32,12 +45,13 @@ export async function addVehicle(vendorId, form) {
     new Blob([JSON.stringify(data)], { type: "application/json" })
   );
 
-  form.vehicleImages.forEach(img =>
-    formData.append("images", img)
-  );
+  form.vehicleImages.forEach(img => {
+    formData.append("images", img);
+  });
 
-  const res = await fetch(`${BASE_URL}/api/vendor/${vendorId}/vehicles`, {
+  const res = await fetch(`${BASE_URL}/api/vendor/vehicles`, {
     method: "POST",
+    headers: getAuthHeaders(), // 🔥 REQUIRED
     body: formData
   });
 

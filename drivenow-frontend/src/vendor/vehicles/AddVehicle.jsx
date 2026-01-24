@@ -42,6 +42,7 @@ const FEATURES = {
 };
 
 export default function AddVehicle() {
+  console.log("TOKEN:", localStorage.getItem("token"));
   const [form, setForm] = useState({
     company: "",
     model: "",
@@ -247,7 +248,7 @@ export default function AddVehicle() {
               type="button"
               onClick={async () => {
                 try {
-                  await addVehicle(vendorId, form);
+                  await addVehicle(form);
                   navigate("/vendor/vehicles");
                 } catch (err) {
                   alert("Failed to add vehicle");
