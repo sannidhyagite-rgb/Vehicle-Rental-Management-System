@@ -35,8 +35,8 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      // 1️⃣ Admin login (email + password)
-      const loginRes = await api.post("/api/auth/login", {
+      // ✅ 1️⃣ Login (NO /api here)
+      const loginRes = await api.post("/auth/login", {
         email,
         password,
       });
@@ -44,8 +44,8 @@ function LoginPage() {
       const token = loginRes.data.token;
       localStorage.setItem("token", token);
 
-      // 2️⃣ Fetch logged-in user
-      const userRes = await api.get("/api/users/me");
+      // ✅ 2️⃣ Fetch logged-in user (NO /api here)
+      const userRes = await api.get("/users/me");
       const user = userRes.data;
 
       // 🔒 Admin-only guard
@@ -55,16 +55,15 @@ function LoginPage() {
         return;
       }
 
-      // 3️⃣ Store role (for ProtectedRoute + consistency)
+      // ✅ 3️⃣ Store role & user
       localStorage.setItem("role", user.role);
-
-      // (Optional) store full user
       localStorage.setItem("user", JSON.stringify(user));
 
-      // 4️⃣ Redirect admin
+      // ✅ 4️⃣ Redirect admin
       navigate("/admin/dashboard", { replace: true });
 
     } catch (err) {
+      console.error(err);
       setError("Invalid email or password");
     } finally {
       setLoading(false);
@@ -111,7 +110,6 @@ function LoginPage() {
           </button>
         </form>
 
-        {/* 👇 Customer/Vendor redirect */}
         <p className="auth-footer-text mt-4">
           Customer or Vendor? <Link to="/login-otp">Login with OTP</Link>
         </p>

@@ -33,6 +33,7 @@ export default function VendorNavbar() {
         <NavLink to="/vendor/notifications" className="nav-link">
           Notifications
         </NavLink>
+        
       </nav>
 
       <div className="vendor-nav-right">

@@ -1,15 +1,16 @@
-const BASE_URL = "http://localhost:8080";
+import api from "./axios";
 
-export async function fetchMyVehicles(vendorId) {
-  const res = await fetch(`${BASE_URL}/api/vendor/${vendorId}/vehicles`);
-  if (!res.ok) throw new Error("Failed to fetch vehicles");
-  return res.json();
-}
+// ================= GET VENDOR VEHICLES =================
+export const fetchMyVehicles = async () => {
+  const response = await api.get("/vendor/vehicles");
+  return response.data;
+};
 
-export async function addVehicle(vendorId, form) {
+// ================= ADD VEHICLE =================
+export const addVehicle = async (form) => {
   const formData = new FormData();
 
-  const data = {
+  const payload = {
     company: form.company,
     model: form.model,
     year: Number(form.year),
@@ -24,22 +25,31 @@ export async function addVehicle(vendorId, form) {
     pucExpiry: form.pucExpiry,
     chassisLast4: form.chassisLast4,
     engineNumber: form.engineNumber,
-    features: form.features
+    features: form.features || [],
   };
 
+  // JSON data
   formData.append(
     "data",
-    new Blob([JSON.stringify(data)], { type: "application/json" })
+    new Blob([JSON.stringify(payload)], {
+      type: "application/json",
+    })
   );
 
-  form.vehicleImages.forEach(img =>
-    formData.append("images", img)
-  );
+  // Vehicle images
+  if (Array.isArray(form.vehicleImages)) {
+    form.vehicleImages.forEach((file) => {
+      if (file) {
+        formData.append("images", file);
+      }
+    });
+  }
 
-  const res = await fetch(`${BASE_URL}/api/vendor/${vendorId}/vehicles`, {
-    method: "POST",
-    body: formData
+  const response = await api.post("/vendor/vehicles", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
 
-  if (!res.ok) throw new Error("Failed to add vehicle");
-}
+  return response.data;
+};

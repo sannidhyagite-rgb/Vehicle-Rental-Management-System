@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class DrivingLicenseService {
     private final UserRepository userRepository;
 
     // ===============================
-    // CUSTOMER: Submit Driving License
+    // CUSTOMER: Submit / Resubmit Driving License
     // ===============================
     public void submitLicense(DrivingLicenseRequest request) {
 
@@ -35,12 +36,38 @@ public class DrivingLicenseService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (licenseRepository.existsByUser(user)) {
-            throw new RuntimeException("Driving license already submitted");
-        }
+        Optional<DrivingLicense> existingOpt = licenseRepository.findByUser(user);
 
         validateLicense(request);
 
+        // 🔥 CASE 1: License already exists
+        if (existingOpt.isPresent()) {
+            DrivingLicense existing = existingOpt.get();
+
+            // ❌ Block if PENDING or APPROVED
+            if (existing.getStatus() == LicenseStatus.PENDING ||
+                existing.getStatus() == LicenseStatus.APPROVED) {
+
+                throw new RuntimeException("Driving license already submitted");
+            }
+
+            // ✅ Allow resubmission if REJECTED
+            if (existing.getStatus() == LicenseStatus.REJECTED) {
+
+                existing.setLicenseNumber(request.getLicenseNumber());
+                existing.setDateOfBirth(request.getDateOfBirth());
+                existing.setIssueDate(request.getIssueDate());
+                existing.setExpiryDate(request.getExpiryDate());
+                existing.setLicenseType(request.getLicenseType());
+                existing.setStatus(LicenseStatus.PENDING);
+                existing.setVerifiedAt(null); // reset admin review time
+
+                licenseRepository.save(existing);
+                return;
+            }
+        }
+
+        // 🔥 CASE 2: First-time submission
         DrivingLicense license = DrivingLicense.builder()
                 .user(user)
                 .licenseNumber(request.getLicenseNumber())
@@ -48,29 +75,26 @@ public class DrivingLicenseService {
                 .issueDate(request.getIssueDate())
                 .expiryDate(request.getExpiryDate())
                 .licenseType(request.getLicenseType())
-                .status(LicenseStatus.PENDING)   // ✅ ENUM BASED
+                .status(LicenseStatus.PENDING)
                 .build();
 
         licenseRepository.save(license);
     }
 
     // ===============================
-    // CORE VALIDATION LOGIC (BACKEND)
+    // CORE VALIDATION LOGIC
     // ===============================
     private void validateLicense(DrivingLicenseRequest request) {
 
-        // 1️⃣ Age check (18+)
         int age = Period.between(request.getDateOfBirth(), LocalDate.now()).getYears();
         if (age < 18) {
             throw new RuntimeException("User must be at least 18 years old");
         }
 
-        // 2️⃣ Date consistency
         if (request.getIssueDate().isAfter(request.getExpiryDate())) {
             throw new RuntimeException("License issue date cannot be after expiry date");
         }
 
-        // 3️⃣ Expiry check
         if (request.getExpiryDate().isBefore(LocalDate.now())) {
             throw new RuntimeException("Driving license is expired");
         }
@@ -100,15 +124,11 @@ public class DrivingLicenseService {
     }
 
     private String getStatusMessage(LicenseStatus status) {
-        switch (status) {
-            case APPROVED:
-                return "Driving license verified. You can book vehicles.";
-            case REJECTED:
-                return "Driving license rejected. Please contact support.";
-            case PENDING:
-            default:
-                return "Driving license under verification.";
-        }
+        return switch (status) {
+            case APPROVED -> "Driving license verified. You can book vehicles.";
+            case REJECTED -> "Driving license rejected. Please resubmit.";
+            case PENDING -> "Driving license under verification.";
+        };
     }
 
     // ===============================
@@ -119,13 +139,8 @@ public class DrivingLicenseService {
         DrivingLicense license = licenseRepository.findById(licenseId)
                 .orElseThrow(() -> new RuntimeException("Driving license not found"));
 
-        if (approve) {
-            license.setStatus(LicenseStatus.APPROVED);
-            license.setVerifiedAt(LocalDateTime.now());
-        } else {
-            license.setStatus(LicenseStatus.REJECTED);
-            license.setVerifiedAt(LocalDateTime.now());
-        }
+        license.setStatus(approve ? LicenseStatus.APPROVED : LicenseStatus.REJECTED);
+        license.setVerifiedAt(LocalDateTime.now());
 
         licenseRepository.save(license);
     }

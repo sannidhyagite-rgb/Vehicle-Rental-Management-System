@@ -1,11 +1,13 @@
 import api from "./axios";
 
-// Get all pending licenses (ADMIN)
-export const getPendingLicenses = () =>
-  api.get("/api/admin/licenses/pending");
+// ADMIN – get pending licenses
+export const getPendingLicenses = () => {
+  return api.get("/admin/licenses/pending");
+};
 
-// Approve / Reject license (ADMIN)
-export const verifyLicense = (licenseId, approve) =>
-  api.put(`/api/admin/licenses/${licenseId}/verify`, {
-    approve,
+// ADMIN – approve / reject license
+export const verifyLicense = (licenseId, approve) => {
+  return api.put(`/admin/licenses/${licenseId}/verify`, {
+    approve
   });
+};

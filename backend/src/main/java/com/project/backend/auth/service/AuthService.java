@@ -52,25 +52,34 @@ public class AuthService {
             throw new RuntimeException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getEmail());
-        return new LoginResponse(token);
+        // 🔥 FIX: include ROLE in JWT
+        String token = jwtUtil.generateToken(
+                user.getEmail(),
+                user.getRole().name()
+        );
+
+        return new LoginResponse(token, user.getRole().name());
     }
 
     /* =========================
-       LOGIN WITH OTP (NEW)
+       LOGIN WITH OTP
        ========================= */
     public LoginResponse loginWithOtp(String mobileNumber) {
 
         User user = userRepository.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        String token = jwtUtil.generateToken(user.getEmail());
-        return new LoginResponse(token);
+        // 🔥 FIX: include ROLE in JWT
+        String token = jwtUtil.generateToken(
+                user.getEmail(),
+                user.getRole().name()
+        );
+
+        return new LoginResponse(token, user.getRole().name());
     }
-    
+
     public User getUserByMobileNumber(String mobileNumber) {
         return userRepository.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
-
 }
