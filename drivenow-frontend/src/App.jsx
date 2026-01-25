@@ -61,7 +61,7 @@ import VendorDashboard from "./vendor/dashboard/VendorDashboard";
 /* ================= LAYOUTS ================= */
 
 /* Customer */
-import CustomerDashboard from "./pages/CustomerDashboard";
+import CustomerDashboard from "./pages/customer/CustomerDashboard";
 import CustomerProfile from "./pages/customer/CustomerProfile";
 import MyBookings from "./components/MyBooking/MyBookings";
 import VehicleDetails from "./pages/VehicleDetails";
@@ -245,7 +245,7 @@ function App() {
         />
 
         <Route
-          path="/vehicle/:id"
+          path="/vehicles/:id"
           element={
             <>
               <CNavbar />
@@ -253,6 +253,9 @@ function App() {
             </>
           }
         />
+
+        {/* <Route path="/vehicles/:id" element={<VehicleDetails />} /> */}
+
 
         {/* ================= VENDOR REGISTER ================= */}
         {/* Landing */}

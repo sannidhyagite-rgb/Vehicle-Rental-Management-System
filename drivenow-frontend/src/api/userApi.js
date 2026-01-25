@@ -1,6 +1,16 @@
 import api from "./axios";
 
-export const getMyProfile = () => api.get("/api/users/me");
+/**
+ * Get logged-in user's profile
+ */
+export const getMyProfile = () => {
+  return api.get("/users/me");
+};
 
-export const updateMyProfile = (data) =>
-  api.put("/api/users/me", data);
+/**
+ * Update logged-in user's profile
+ * @param {Object} data
+ */
+export const updateMyProfile = (data) => {
+  return api.put("/users/me", data);
+};
