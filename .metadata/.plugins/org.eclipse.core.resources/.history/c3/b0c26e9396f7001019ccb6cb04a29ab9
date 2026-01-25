@@ -1,5 +1,0 @@
-package com.project.backend.Vehicle.Enum;
-
-public enum TransmissionType {
-
-}

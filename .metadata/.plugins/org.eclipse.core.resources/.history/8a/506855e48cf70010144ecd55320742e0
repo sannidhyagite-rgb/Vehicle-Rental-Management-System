@@ -1,8 +1,0 @@
-package com.project.backend.Vehicle;
-
-public enum VehicleType {
-    CAR,
-    BIKE,
-    SUV,
-    EV
-}

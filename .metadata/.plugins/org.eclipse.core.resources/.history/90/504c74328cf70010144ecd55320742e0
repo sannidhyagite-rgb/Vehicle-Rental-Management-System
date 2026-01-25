@@ -1,5 +1,0 @@
-package com.project.backend.Vehicle;
-
-public enum Availability_Status {
-	   AVAILABLE,BOOKED,MAINTENANCE
-}
