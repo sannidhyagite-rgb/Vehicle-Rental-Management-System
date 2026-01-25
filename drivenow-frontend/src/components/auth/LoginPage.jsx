@@ -67,6 +67,30 @@ function LoginPage() {
       setError("Invalid email or password");
     } finally {
       setLoading(false);
+
+    // -------------------------
+    // 🎯 TEST LOGIN ACCOUNTS
+    // -------------------------
+
+    const mockCustomerEmails = ["customer@example.com"];
+    const mockVendorEmails   = ["vendor@example.com"];
+
+    // ⭐ YOUR NEW ADMIN LOGIN (REQUESTED BY YOU)
+    const mockAdminEmails = ["superadmin@drivenow.com"];
+
+    const userEmail = email.toLowerCase().trim();
+
+    if (mockCustomerEmails.includes(userEmail)) {
+      navigate("/customerdashboard");
+
+    } else if (mockVendorEmails.includes(userEmail)) {
+      navigate("/vendor/dashboard");
+
+    } else if (mockAdminEmails.includes(userEmail)) {
+      navigate("/admin/dashboard");
+
+    } else {
+      setError("Invalid email. Try customer@example.com or vendor@example.com or superadmin@drivenow.com");
     }
   };
 
@@ -77,6 +101,12 @@ function LoginPage() {
         <p className="auth-subtitle">Admins only</p>
 
         {error && <div className="alert alert-danger mb-3">{error}</div>}
+        <h1>Welcome back</h1>
+        <p className="auth-subtitle">Log in to continue</p>
+
+        {error && (
+          <div className="alert alert-danger mb-3">{error}</div>
+        )}
 
         <form className="auth-form" onSubmit={handleLogin}>
           <label>
@@ -110,6 +140,16 @@ function LoginPage() {
           </button>
         </form>
 
+        <div className="mt-3 p-3 bg-light rounded">
+          <small className="text-muted">
+            <strong>Test Accounts:</strong><br/>
+            Customer: <code>customer@example.com</code><br/>
+            Vendor: <code>vendor@example.com</code><br/>
+            Admin: <code>superadmin@drivenow.com</code><br/>
+            <em>Any password works</em>
+          </small>
+        </div>
+
         <p className="auth-footer-text mt-4">
           Customer or Vendor? <Link to="/login-otp">Login with OTP</Link>
         </p>
@@ -117,5 +157,5 @@ function LoginPage() {
     </main>
   );
 }
-
+}
 export default LoginPage;

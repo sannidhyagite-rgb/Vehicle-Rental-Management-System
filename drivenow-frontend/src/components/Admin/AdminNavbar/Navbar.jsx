@@ -1,4 +1,5 @@
 import React from "react";
+import React from 'react';
 import "./Navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -11,6 +12,18 @@ function AdminNavbar() {
     localStorage.removeItem("role");
 
     navigate("/login", { replace: true });
+  const styles = {
+    link: {
+      textDecoration: "none",
+      color: "inherit",
+    },
+  };
+
+  const handleLogout = () => {
+    // If you store auth data in future, clear it here
+    // localStorage.removeItem("token");
+
+    navigate("/login");  // redirect to login page
   };
 
   return (
@@ -22,6 +35,7 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/dashboard"
+            style={styles.link}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Dashboard
@@ -29,6 +43,7 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/users"
+            style={styles.link}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Users
@@ -70,15 +85,18 @@ function AdminNavbar() {
             Complaints
           </NavLink>
 
+          <li>Vehicles</li>
+          <li>Bookings</li>
+          <li>Reports</li>
+          <li>Complaints</li>
         </div>
       </ul>
 
       <div className="profile-section">
         <span>👤 Admin</span>
-
         <button
           type="button"
-          className="btn btn-outline-danger btn-sm"
+          className="btn btn-outline-danger"
           onClick={handleLogout}
         >
           Logout
@@ -87,5 +105,5 @@ function AdminNavbar() {
     </nav>
   );
 }
-
+}
 export default AdminNavbar;

@@ -13,6 +13,7 @@ export default function VendorNavbar() {
     navigate("/login");
   };
 
+<<<<<<< HEAD
   return (
     <header className="vendor-navbar">
       <div className="vendor-nav-left">
@@ -47,4 +48,15 @@ export default function VendorNavbar() {
       </div>
     </header>
   );
+=======
+            <div className="vendor-nav-right">
+                <NavLink to="/vendor/profile" className="profile">
+                    <span className="profile-icon">👤</span>
+                    <span className="profile-name">atharv</span>
+                </NavLink>
+                <NavLink to="/" className="btn btn-ghost">Logout</NavLink>
+            </div>
+        </header>
+    );
+>>>>>>> booking
 }
