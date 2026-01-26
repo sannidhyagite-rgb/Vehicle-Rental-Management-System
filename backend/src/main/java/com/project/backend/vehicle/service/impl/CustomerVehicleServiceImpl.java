@@ -35,7 +35,7 @@ public class CustomerVehicleServiceImpl implements CustomerVehicleService {
         dto.setCompany(vehicle.getCompany());
         dto.setModel(vehicle.getModel());
         dto.setYear(vehicle.getYear());
-        dto.setFuel(vehicle.getFuel());
+        dto.setFuel(vehicle.getFuel().name());
         dto.setRatePerDay(vehicle.getRatePerDay());
 
         // First image only

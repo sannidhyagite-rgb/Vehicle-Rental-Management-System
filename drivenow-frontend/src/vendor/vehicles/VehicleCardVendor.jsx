@@ -15,15 +15,20 @@ export default function VehicleCardVendor({ v }) {
       </div>
 
       <div className="right">
+        {/* TOP ROW */}
         <div className="row top">
-          <h4>{v.title}</h4>
-          <div className={`badge ${v.status.toLowerCase()}`}>
-            {v.status}
+          <div className="title-with-status">
+            <h4>{v.title}</h4>
+            <span className={`badge ${v.status.toLowerCase()}`}>
+              {v.status}
+            </span>
           </div>
         </div>
 
+        {/* META */}
         <div className="meta">{v.subtitle}</div>
 
+        {/* BOTTOM ROW */}
         <div className="row bottom">
           <div className="price">
             ₹{v.ratePerDay} <small>/ day</small>

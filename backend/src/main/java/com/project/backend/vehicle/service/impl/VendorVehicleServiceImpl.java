@@ -50,6 +50,7 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
         vehicle.setYear(dto.getYear());
         vehicle.setTransmission(dto.getTransmission());
         vehicle.setFuel(dto.getFuel());
+        vehicle.setCarType(dto.getCarType());
         vehicle.setSeats(dto.getSeats());
         vehicle.setRatePerDay(dto.getRatePerDay());
         vehicle.setDescription(dto.getDescription());

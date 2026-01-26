@@ -39,7 +39,7 @@ export default function VendorNavbar() {
       <div className="vendor-nav-right">
         <NavLink to="/vendor/profile" className="profile">
           <span className="profile-icon">👤</span>
-          <span className="profile-name">Siddhesh</span>
+          <span className="profile-name">Atharv</span>
         </NavLink>
         <button className="btn btn-ghost" onClick={handleLogout}>
           Logout

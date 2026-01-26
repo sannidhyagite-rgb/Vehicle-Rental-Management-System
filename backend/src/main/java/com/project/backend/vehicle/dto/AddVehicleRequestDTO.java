@@ -1,5 +1,8 @@
 package com.project.backend.vehicle.dto;
 
+import com.project.backend.vehicle.enums.CarType;
+import com.project.backend.vehicle.enums.FuelType;
+import com.project.backend.vehicle.enums.TransmissionType;
 import lombok.Data;
 import java.util.List;
 
@@ -9,8 +12,9 @@ public class AddVehicleRequestDTO {
     private String company;
     private String model;
     private int year;
-    private String transmission;
-    private String fuel;
+    private TransmissionType transmission;
+    private FuelType fuel;
+    private CarType carType;
     private int seats;
     private double ratePerDay;
     private String description;
