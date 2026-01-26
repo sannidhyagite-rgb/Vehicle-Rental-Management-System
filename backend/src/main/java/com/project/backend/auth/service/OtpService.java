@@ -20,7 +20,7 @@ public class OtpService {
     private final OtpVerificationRepository otpRepository;
     private final UserRepository userRepository;
     private final EmailService emailService;
-    private final PasswordEncoder passwordEncoder; // ✅ FIX
+    private final PasswordEncoder passwordEncoder;
 
     private static final int MAX_ATTEMPTS = 3;
 
@@ -36,17 +36,17 @@ public class OtpService {
                 : userRepository.findByMobileNumber(identifier)
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // 2️⃣ Generate OTP
+        // 2️⃣ Generate 6-digit OTP
         String otp = String.valueOf(new Random().nextInt(900000) + 100000);
 
-        // 3️⃣ Remove previous OTP
+        // 3️⃣ Remove any previous OTP for this user
         otpRepository.deleteByMobileNumber(user.getMobileNumber());
 
-        // 4️⃣ Save OTP
+        // 4️⃣ Save new OTP (HASHED)
         OtpVerification otpEntity = new OtpVerification();
         otpEntity.setIdentifier(identifier);
         otpEntity.setMobileNumber(user.getMobileNumber());
-        otpEntity.setOtpHash(passwordEncoder.encode(otp)); // ✅ HASHED
+        otpEntity.setOtpHash(passwordEncoder.encode(otp));
         otpEntity.setExpiryTime(LocalDateTime.now().plusMinutes(5));
         otpEntity.setAttempts(0);
         otpEntity.setBlocked(false);
@@ -55,8 +55,13 @@ public class OtpService {
 
         otpRepository.save(otpEntity);
 
-        // 5️⃣ Send OTP via email
-        emailService.sendOtp(user.getEmail(), otp);
+        // 5️⃣ Send OTP email safely (NO HANGING)
+        try {
+            emailService.sendOtp(user.getEmail(), otp);
+        } catch (Exception e) {
+            System.err.println("OTP email failed: " + e.getMessage());
+            throw new RuntimeException("OTP service temporarily unavailable");
+        }
     }
 
     /* =========================
@@ -75,18 +80,18 @@ public class OtpService {
         OtpVerification otpData = otpRepository.findByMobileNumber(user.getMobileNumber())
                 .orElseThrow(() -> new RuntimeException("OTP not found"));
 
-        // 3️⃣ Blocked check
+        // 3️⃣ Check if blocked
         if (otpData.isBlocked()) {
-            throw new RuntimeException("OTP blocked due to multiple failures");
+            throw new RuntimeException("OTP blocked due to multiple failed attempts");
         }
 
-        // 4️⃣ Expiry check
+        // 4️⃣ Check expiry
         if (otpData.getExpiryTime().isBefore(LocalDateTime.now())) {
             otpRepository.deleteByMobileNumber(user.getMobileNumber());
             throw new RuntimeException("OTP expired");
         }
 
-        // 5️⃣ Verify OTP (HASHED)
+        // 5️⃣ Validate OTP (HASHED comparison)
         if (!passwordEncoder.matches(otp, otpData.getOtpHash())) {
             otpData.setAttempts(otpData.getAttempts() + 1);
 
@@ -98,7 +103,7 @@ public class OtpService {
             throw new RuntimeException("Invalid OTP");
         }
 
-        // 6️⃣ Success
+        // 6️⃣ Success → remove OTP
         otpRepository.deleteByMobileNumber(user.getMobileNumber());
     }
 }
