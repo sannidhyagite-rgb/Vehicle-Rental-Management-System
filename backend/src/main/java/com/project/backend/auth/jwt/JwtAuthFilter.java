@@ -31,9 +31,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        // 🔴 IMPORTANT: Skip JWT filter for public & swagger endpoints
         String path = request.getServletPath();
 
+        // ===== SKIP JWT FOR PUBLIC ENDPOINTS =====
         if (
                 path.startsWith("/api/auth") ||
                 path.startsWith("/swagger-ui") ||
@@ -43,35 +43,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 1️⃣ Read Authorization header
+        // Read Authorization header
         String authHeader = request.getHeader("Authorization");
 
-        // 2️⃣ If no token → continue filter chain
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 3️⃣ Extract JWT token
         String token = authHeader.substring(7);
 
-        // 4️⃣ Validate token
         if (!jwtUtil.isTokenValid(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 5️⃣ Extract email from token
         String email = jwtUtil.extractEmail(token);
 
-        // 6️⃣ Load user from database
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 7️⃣ Set authentication ONLY if not already authenticated
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
 
             List<SimpleGrantedAuthority> authorities = List.of(
@@ -80,7 +74,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            user,   // principal
+                            user,
                             null,
                             authorities
                     );
@@ -92,7 +86,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        // 8️⃣ Continue filter chain
         filterChain.doFilter(request, response);
     }
 }
