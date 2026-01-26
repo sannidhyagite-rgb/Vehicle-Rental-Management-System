@@ -44,11 +44,8 @@ public class SecurityConfig {
                     "/api/auth/**"
                 ).permitAll()
 
-                // ✅ PUBLIC VEHICLES API (HOME PAGE – BEFORE LOGIN)
-                .requestMatchers(
-                    HttpMethod.GET,
-                    "/api/public/**"
-                ).permitAll()
+                // ===== PUBLIC APIs =====
+                .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
 
                 // ===== ROLE BASED ACCESS =====
                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
@@ -74,18 +71,29 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ===== CORS CONFIG =====
+    // ===== LOCAL CORS CONFIG =====
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // ✅ Allow all local frontend ports
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:*"
+        ));
+
+        config.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
+
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
+
+        // 🔴 IMPORTANT: false for JWT in headers
+        config.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
+
         source.registerCorsConfiguration("/**", config);
 
         return source;

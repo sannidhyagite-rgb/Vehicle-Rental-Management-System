@@ -33,7 +33,6 @@ api.interceptors.response.use(
         localStorage.removeItem("token");
         localStorage.removeItem("role");
 
-        // Prevent infinite redirect loop
         if (!window.location.pathname.includes("/login")) {
           window.location.href = "/login";
         }

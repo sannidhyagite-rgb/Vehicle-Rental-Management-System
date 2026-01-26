@@ -38,6 +38,7 @@ public class User {
     @Column(name = "mobile_number", nullable = false, unique = true, length = 15)
     private String mobileNumber;
 
+
     private String city;
 
     @Enumerated(EnumType.STRING)
