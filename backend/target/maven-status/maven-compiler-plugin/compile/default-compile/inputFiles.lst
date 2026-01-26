@@ -1,32 +1,62 @@
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\controller\AuthController.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\controller\OtpAuthController.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\LoginRequest.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\LoginResponse.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\RegisterRequest.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\entity\OtpVerification.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\jwt\JwtAuthFilter.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\jwt\JwtUtil.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\repository\OtpVerificationRepository.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\service\AuthService.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\service\OtpService.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\BackendApplication.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\common\util\CurrentUserUtil.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\config\MethodSecurityConfig.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\config\OpenApiConfig.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\config\PasswordConfig.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\config\SecurityConfig.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\controller\AdminLicenseController.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\controller\DrivingLicenseController.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\dto\DrivingLicenseRequest.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\dto\DrivingLicenseStatusResponse.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\dto\LicenseVerificationRequest.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\entity\DrivingLicense.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\entity\LicenseStatus.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\repository\DrivingLicenseRepository.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\license\service\DrivingLicenseService.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\user\controller\UserController.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\user\dto\UpdateProfileRequest.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\user\model\User.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\user\repository\UserRepository.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\user\service\UserService.java
-C:\Users\ghode\OneDrive\Desktop\CDAC_PROJECT\vms-project\backend\src\main\java\com\project\backend\user\UserRole.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\controller\AuthController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\controller\OtpAuthController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\LoginRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\LoginResponse.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\RegisterRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\SendOtpRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\dto\VerifyOtpRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\entity\OtpVerification.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\jwt\JwtAuthFilter.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\jwt\JwtUtil.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\repository\OtpVerificationRepository.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\service\AuthService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\service\EmailService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\auth\service\OtpService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\BackendApplication.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\common\util\CurrentUserUtil.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\config\MethodSecurityConfig.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\config\OpenApiConfig.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\config\PasswordConfig.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\config\SecurityConfig.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\controller\AdminLicenseController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\controller\DrivingLicenseController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\dto\DrivingLicenseRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\dto\DrivingLicenseStatusResponse.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\dto\LicenseVerificationRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\entity\DrivingLicense.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\entity\LicenseStatus.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\repository\DrivingLicenseRepository.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\license\service\DrivingLicenseService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\user\controller\UserController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\user\dto\UpdateProfileRequest.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\user\model\User.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\user\repository\UserRepository.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\user\service\UserService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\user\UserRole.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\util\PasswordHashGenerator.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\config\WebConfig.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\controller\AdminVehicleController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\controller\CustomerVehicleController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\controller\PublicVehicleController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\controller\VendorVehicleController.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\dto\AddVehicleRequestDTO.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\dto\AdminVehicleResponseDTO.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\dto\CustomerVehicleResponseDTO.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\dto\VendorVehicleResponseDTO.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\entity\Vehicle.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\entity\VehicleImage.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\entity\Vendor.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\enums\CarType.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\enums\FuelType.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\enums\TransmissionType.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\enums\VehicleBookingStatus.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\enums\VehicleStatus.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\repository\VehicleImageRepository.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\repository\VehicleRepository.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\repository\VendorRepository.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\service\AdminVehicleService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\service\CustomerVehicleService.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\service\impl\AdminVehicleServiceImpl.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\service\impl\CustomerVehicleServiceImpl.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\service\impl\VendorVehicleServiceImpl.java
+D:\CDAC PROJECT\vms-project\backend\src\main\java\com\project\backend\vehicle\service\VendorVehicleService.java
