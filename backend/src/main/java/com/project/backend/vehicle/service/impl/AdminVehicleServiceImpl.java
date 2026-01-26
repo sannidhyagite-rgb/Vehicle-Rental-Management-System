@@ -34,8 +34,8 @@ public class AdminVehicleServiceImpl implements AdminVehicleService {
                     dto.setCompany(vehicle.getCompany());
                     dto.setModel(vehicle.getModel());
                     dto.setYear(vehicle.getYear());
-                    dto.setFuel(vehicle.getFuel());
-                    dto.setTransmission(vehicle.getTransmission());
+                    dto.setFuel(vehicle.getFuel().name());
+                    dto.setTransmission(vehicle.getTransmission().name());
                     dto.setStatus(vehicle.getStatus().name());
                     dto.setVendorName(
                             vehicle.getVendor().getFullName()

@@ -49,6 +49,7 @@ export default function AddVehicle() {
     year: "",
     transmission: "",
     fuel: "",
+    carType: "",
     seats: "",
     ratePerDay: "",
     description: "",
@@ -111,22 +112,45 @@ export default function AddVehicle() {
 
             <label>
               Transmission
-              <select value={form.transmission} onChange={handleChange("transmission")}>
+              <select
+                value={form.transmission}
+                onChange={handleChange("transmission")}
+              >
                 <option value="" disabled>Choose</option>
-                <option>Manual</option>
-                <option>Automatic</option>
+                <option value="MANUAL">Manual</option>
+                <option value="AUTOMATIC">Automatic</option>
               </select>
             </label>
 
             <label>
               Fuel Type
-              <select value={form.fuel} onChange={handleChange("fuel")}>
+              <select
+                value={form.fuel}
+                onChange={handleChange("fuel")}
+              >
                 <option value="" disabled>Choose</option>
-                <option>Petrol</option>
-                <option>Diesel</option>
-                <option>CNG</option>
-                <option>Electric</option>
-                <option>Hybrid</option>
+                <option value="PETROL">Petrol</option>
+                <option value="DIESEL">Diesel</option>
+                <option value="CNG">CNG</option>
+                <option value="ELECTRIC">Electric</option>
+                <option value="HYBRID">Hybrid</option>
+              </select>
+            </label>
+
+            <label>
+              Car Type
+              <select
+                value={form.carType}
+                onChange={handleChange("carType")}
+              >
+                <option value="" disabled>Choose</option>
+                <option value="SUV">SUV</option>
+                <option value="MPV">MPV</option>
+                <option value="COMPACT_SUV">Compact SUV</option>
+                <option value="MUV">MUV</option>
+                <option value="HATCHBACK">Hatchback</option>
+                <option value="COMPACT_SEDAN">Compact Sedan</option>
+                <option value="SEDAN">Sedan</option>
               </select>
             </label>
 

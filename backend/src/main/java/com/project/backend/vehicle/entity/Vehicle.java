@@ -7,6 +7,9 @@ import java.util.List;
 
 import com.project.backend.user.model.User;
 import com.project.backend.vehicle.enums.VehicleStatus;
+import com.project.backend.vehicle.enums.TransmissionType;
+import com.project.backend.vehicle.enums.FuelType;
+import com.project.backend.vehicle.enums.CarType;
 
 @Entity
 @Table(name = "vehicles")
@@ -21,8 +24,16 @@ public class Vehicle {
     private String company;
     private String model;
     private int year;
-    private String transmission;
-    private String fuel;
+
+    @Enumerated(EnumType.STRING)
+    private TransmissionType transmission;
+
+    @Enumerated(EnumType.STRING)
+    private FuelType fuel;
+
+    @Enumerated(EnumType.STRING)
+    private CarType carType;
+
     private int seats;
     private double ratePerDay;
     private String description;

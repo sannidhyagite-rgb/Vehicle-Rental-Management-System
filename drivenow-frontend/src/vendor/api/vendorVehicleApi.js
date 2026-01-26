@@ -16,6 +16,7 @@ export const addVehicle = async (form) => {
     year: Number(form.year),
     transmission: form.transmission,
     fuel: form.fuel,
+    carType: form.carType,
     seats: Number(form.seats),
     ratePerDay: Number(form.ratePerDay),
     description: form.description,
