@@ -1,6 +1,6 @@
-import React from 'react';
-import "./Navbar.css";
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 function AdminNavbar() {
   const navigate = useNavigate();
@@ -9,32 +9,27 @@ function AdminNavbar() {
     // 🔐 Clear auth data
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("user");
 
-    navigate("/login", { replace: true });
-  const styles = {
-    link: {
-      textDecoration: "none",
-      color: "inherit",
-    },
+    navigate("/admin/login", { replace: true });
   };
 
-  const handleLogout = () => {
-    // If you store auth data in future, clear it here
-    // localStorage.removeItem("token");
-
-    navigate("/login");  // redirect to login page
+  const linkStyle = {
+    textDecoration: "none",
+    color: "inherit",
   };
 
   return (
     <nav className="navbar">
+      {/* Logo */}
       <div className="logo">🚗 DriveNow</div>
 
+      {/* Navigation Links */}
       <ul className="nav-menu">
         <div className="navlist">
-
           <NavLink
             to="/admin/dashboard"
-            style={styles.link}
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Dashboard
@@ -42,7 +37,7 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/users"
-            style={styles.link}
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Users
@@ -50,14 +45,15 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/license-verification"
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             License Verification
           </NavLink>
 
-          {/* 🔥 NEW: Vehicles (Approve / Reject) */}
           <NavLink
             to="/admin/vehicles"
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Vehicles
@@ -65,6 +61,7 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/bookings"
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Bookings
@@ -72,6 +69,7 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/reports"
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Reports
@@ -79,18 +77,15 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/complaints"
+            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Complaints
           </NavLink>
-
-          <li>Vehicles</li>
-          <li>Bookings</li>
-          <li>Reports</li>
-          <li>Complaints</li>
         </div>
       </ul>
 
+      {/* Profile Section */}
       <div className="profile-section">
         <span>👤 Admin</span>
         <button
@@ -104,5 +99,5 @@ function AdminNavbar() {
     </nav>
   );
 }
-}
+
 export default AdminNavbar;

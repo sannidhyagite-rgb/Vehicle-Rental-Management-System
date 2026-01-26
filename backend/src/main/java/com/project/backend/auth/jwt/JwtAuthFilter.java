@@ -31,53 +31,56 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        // 1️⃣ Read Authorization header
         String authHeader = request.getHeader("Authorization");
 
-        // 1️⃣ No Authorization header
+        // 2️⃣ If no token → continue filter chain
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 2️⃣ Extract token
+        // 3️⃣ Extract JWT token
         String token = authHeader.substring(7);
 
-        // 3️⃣ Validate token
+        // 4️⃣ Validate token
         if (!jwtUtil.isTokenValid(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 4️⃣ Extract email
+        // 5️⃣ Extract email from token
         String email = jwtUtil.extractEmail(token);
 
-        // 5️⃣ Load user
+        // 6️⃣ Load user from database
         User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // ✅ 6️⃣ Attach authority (NO ROLE_ PREFIX)
-        List<SimpleGrantedAuthority> authorities = List.of(
-                new SimpleGrantedAuthority(user.getRole().name())
-        );
+        // 7️⃣ Set authentication ONLY if not already authenticated
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
 
-        // 7️⃣ Create authentication
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(
-                        user.getEmail(),
-                        null,
-                        authorities
-                );
+            List<SimpleGrantedAuthority> authorities = List.of(
+                    new SimpleGrantedAuthority(user.getRole().name()) // ADMIN / VENDOR / CUSTOMER
+            );
 
-        authentication.setDetails(
-                new WebAuthenticationDetailsSource().buildDetails(request)
-        );
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(
+                            user,   // ✅ principal = User object
+                            null,
+                            authorities
+                    );
 
-        // 8️⃣ Set authentication
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            authentication.setDetails(
+                    new WebAuthenticationDetailsSource().buildDetails(request)
+            );
 
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+        // 8️⃣ Continue filter chain
         filterChain.doFilter(request, response);
     }
 }

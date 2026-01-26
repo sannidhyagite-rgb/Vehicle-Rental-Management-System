@@ -1,60 +1,59 @@
 package com.project.backend.auth.jwt;
 
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.function.Function;
 
 @Component
 public class JwtUtil {
 
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
+    // 🔐 MUST be same for generate + validate
+    private static final String SECRET =
+            "THIS_IS_A_VERY_SECURE_SECRET_KEY_FOR_JWT_SIGNING_123456";
 
-    // ================= GENERATE TOKEN (WITH ROLE) =================
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24 hours
+
+    private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
+
+    /* ================= GENERATE TOKEN ================= */
     public String generateToken(String email, String role) {
-
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("role", role); // ADMIN / VENDOR / CUSTOMER
-
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(email)
+                .setSubject(email)                  // ✅ SUBJECT = EMAIL
+                .claim("role", role)                // optional
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(key)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // ================= EXTRACT EMAIL =================
-    public String extractEmail(String token) {
-        return getClaims(token).getSubject();
-    }
-
-    // ================= EXTRACT ROLE =================
-    public String extractRole(String token) {
-        return getClaims(token).get("role", String.class);
-    }
-
-    // ================= VALIDATE TOKEN =================
+    /* ================= VALIDATE TOKEN ================= */
     public boolean isTokenValid(String token) {
         try {
-            getClaims(token);
+            extractAllClaims(token);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    // ================= GET CLAIMS =================
-    private Claims getClaims(String token) {
+    /* ================= EXTRACT EMAIL ================= */
+    public String extractEmail(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    /* ================= CLAIM UTILS ================= */
+    private <T> T extractClaim(String token, Function<Claims, T> resolver) {
+        Claims claims = extractAllClaims(token);
+        return resolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
