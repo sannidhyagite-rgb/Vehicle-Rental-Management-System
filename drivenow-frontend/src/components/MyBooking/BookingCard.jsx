@@ -60,15 +60,15 @@ const BookingCard = ({ data, tab }) => {
         <div className="action-buttons">
           {tab === "upcoming" && (
             <>
-              
-<button
-  className="action-btn modify"
-  onClick={() =>
-    navigate("/booking-info", { state: { bookingData: data } })
-  }
->
-  ✏️ Modify
-</button>
+
+              <button
+                className="action-btn modify"
+                onClick={() =>
+                  navigate("/booking-info", { state: { bookingData: data } })
+                }
+              >
+                ✏️ Modify
+              </button>
 
               <button className="action-btn cancel">✖ Cancel</button>
 

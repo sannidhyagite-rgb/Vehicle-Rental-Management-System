@@ -4,6 +4,7 @@ import com.project.backend.auth.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // Disable CSRF (JWT based)
+            // Disable CSRF (JWT based auth)
             .csrf(csrf -> csrf.disable())
 
             // Enable CORS
@@ -32,8 +33,8 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // ===== ALLOW PREFLIGHT =====
-                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                // ===== ALLOW PREFLIGHT REQUESTS =====
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 // ===== PUBLIC ENDPOINTS =====
                 .requestMatchers(
@@ -41,6 +42,12 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/api/auth/**"
+                ).permitAll()
+
+                // ✅ PUBLIC VEHICLES API (HOME PAGE – BEFORE LOGIN)
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/public/**"
                 ).permitAll()
 
                 // ===== ROLE BASED ACCESS =====
@@ -56,7 +63,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
 
-            // Stateless session
+            // Stateless session (JWT)
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )

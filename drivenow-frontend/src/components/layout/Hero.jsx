@@ -1,7 +1,7 @@
 // src/components/layout/Hero.jsx
 import React from "react";
 import SearchForm from "../home/SearchForm";
-import VendorRegisterButton from "../home/VendorRegisterButton";
+// import VendorRegisterButton from "../home/VendorRegisterButton";
 
 function Hero() {
   return (
@@ -11,7 +11,7 @@ function Hero() {
         <p className="hero-subtitle">
           Choose from our premium fleet of vehicles for any occasion
         </p>
-        <VendorRegisterButton />
+        {/* <VendorRegisterButton /> */}
         <SearchForm />
       </div>
     </section>

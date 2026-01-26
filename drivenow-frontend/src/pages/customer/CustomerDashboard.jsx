@@ -79,7 +79,7 @@ function CustomerDashboard() {
                 <div className="card-footer bg-white border-0">
                   <button
                     className="btn btn-primary w-100"
-                    onClick={() => navigate(`/vehicles/${v.id}`)}
+                    onClick={() => navigate(`/vehicle/${v.id}`)}
                   >
                     View Details
                   </button>

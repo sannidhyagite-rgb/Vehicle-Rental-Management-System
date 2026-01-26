@@ -4,32 +4,50 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <header className="navbar">
-      <div className="navbar-left">
-        <div className="logo-icon">🚗</div>
-        <span className="logo-text">DriveNow</span>
-      </div>
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+      {/* BRAND */}
+      <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
+        <span className="fs-4 me-2">🚗</span>
+        DriveNow
+      </Link>
 
-     <nav className="navbar-center">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
-        <a href="#vehicles" className="nav-link">
-          Vehicles
-        </a>
-        <Link to="/mybookings" className="nav-link">
-          My Bookings
-        </Link>
-      </nav>
-      <div className="navbar-right">
-        <Link to="/login" className="btn btn-ghost">
-          Login
-        </Link>
-        <Link to="/signup" className="btn btn-primary">
-          Sign Up
-        </Link>
+      {/* TOGGLER */}
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#publicNavbar"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      {/* LINKS */}
+      <div className="collapse navbar-collapse" id="publicNavbar">
+        <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <Link className="nav-link fw-medium" to="/">
+              Home
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <a className="nav-link fw-medium" href="#vehicles">
+              Vehicles
+            </a>
+          </li>
+        </ul>
+
+        {/* AUTH BUTTONS */}
+        <div className="d-flex gap-2">
+          <Link to="/login" className="btn btn-outline-primary">
+            Login
+          </Link>
+          <Link to="/signup" className="btn btn-primary">
+            Sign Up
+          </Link>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 }
 

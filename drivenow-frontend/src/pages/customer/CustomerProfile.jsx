@@ -7,30 +7,52 @@ export default function CustomerProfile() {
   const [status, setStatus] = useState(null);
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchStatus = async () => {
     try {
       const res = await getLicenseStatus();
       setStatus(res.data);
-    } catch {
+    } catch (err) {
+      console.error("License status error:", err);
       setStatus({ submitted: false });
     }
   };
 
   const fetchProfile = async () => {
-    const res = await getMyProfile();
-    setProfile(res.data);
+    try {
+      const res = await getMyProfile();
+      setProfile(res.data);
+    } catch (err) {
+      console.error("Profile fetch error:", err);
+      setProfile(null);
+    }
   };
 
   useEffect(() => {
-    fetchProfile();
-    fetchStatus();
+    const loadData = async () => {
+      await Promise.all([fetchProfile(), fetchStatus()]);
+      setLoading(false);
+    };
+
+    loadData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="container mt-5 text-center">
+        <div className="spinner-border text-primary" />
+        <p className="mt-2">Loading profile...</p>
+      </div>
+    );
+  }
 
   if (!profile) {
     return (
       <div className="container mt-5 text-center">
-        <div className="spinner-border text-primary" />
+        <div className="alert alert-danger">
+          Failed to load profile. Please try again later.
+        </div>
       </div>
     );
   }
@@ -79,7 +101,7 @@ export default function CustomerProfile() {
             </div>
           </div>
 
-          {/* EDIT PROFILE FORM */}
+          {/* EDIT PROFILE */}
           {editing && (
             <div className="card shadow-sm mt-3">
               <div className="card-body">
@@ -152,7 +174,6 @@ export default function CustomerProfile() {
 
               {!status && <p>Loading license status...</p>}
 
-              {/* NOT SUBMITTED */}
               {status && !status.submitted && (
                 <>
                   <span className="badge bg-warning text-dark">
@@ -170,7 +191,6 @@ export default function CustomerProfile() {
                 </>
               )}
 
-              {/* SUBMITTED */}
               {status && status.submitted && (
                 <>
                   <span
@@ -187,14 +207,12 @@ export default function CustomerProfile() {
 
                   <p className="mt-2 text-muted">{status.message}</p>
 
-                  {/* APPROVED & VALID */}
                   {licenseMode === "NONE" && (
                     <div className="alert alert-success mt-3">
                       License approved and valid. No changes allowed.
                     </div>
                   )}
 
-                  {/* PENDING / REJECTED / EXPIRED */}
                   {licenseMode !== "NONE" && (
                     <LicenseForm
                       mode={licenseMode}

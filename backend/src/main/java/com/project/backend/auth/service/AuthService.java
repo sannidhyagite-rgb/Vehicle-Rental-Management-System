@@ -6,7 +6,6 @@ import com.project.backend.auth.dto.RegisterRequest;
 import com.project.backend.auth.jwt.JwtUtil;
 import com.project.backend.user.model.User;
 import com.project.backend.user.repository.UserRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,6 @@ public class AuthService {
             throw new RuntimeException("Invalid email or password");
         }
 
-        // 🔥 FIX: include ROLE in JWT
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole().name()
@@ -62,14 +60,16 @@ public class AuthService {
     }
 
     /* =========================
-       LOGIN WITH OTP
+       LOGIN WITH OTP (EMAIL OR MOBILE)
        ========================= */
-    public LoginResponse loginWithOtp(String mobileNumber) {
+    public LoginResponse loginWithOtp(String identifier) {
 
-        User user = userRepository.findByMobileNumber(mobileNumber)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = identifier.contains("@")
+                ? userRepository.findByEmail(identifier)
+                    .orElseThrow(() -> new RuntimeException("User not found"))
+                : userRepository.findByMobileNumber(identifier)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // 🔥 FIX: include ROLE in JWT
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole().name()
@@ -78,8 +78,19 @@ public class AuthService {
         return new LoginResponse(token, user.getRole().name());
     }
 
+    /* =========================
+       FETCH USER (HELPER METHODS)
+       ========================= */
     public User getUserByMobileNumber(String mobileNumber) {
         return userRepository.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public User getUserByIdentifier(String identifier) {
+        return identifier.contains("@")
+                ? userRepository.findByEmail(identifier)
+                    .orElseThrow(() -> new RuntimeException("User not found"))
+                : userRepository.findByMobileNumber(identifier)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

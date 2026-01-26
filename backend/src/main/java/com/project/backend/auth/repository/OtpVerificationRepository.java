@@ -1,14 +1,17 @@
 package com.project.backend.auth.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.project.backend.auth.entity.OtpVerification;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface OtpVerificationRepository 
-        extends JpaRepository<OtpVerification, Long> {
+public interface OtpVerificationRepository
+extends JpaRepository<OtpVerification, Long> {
 
-    Optional<OtpVerification> findByMobileNumber(String mobileNumber);
+Optional<OtpVerification> findByMobileNumber(String mobileNumber);
 
-    void deleteByMobileNumber(String mobileNumber);
+void deleteByMobileNumber(String mobileNumber);
 }
+
+
+
