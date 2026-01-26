@@ -31,6 +31,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        // 🔴 IMPORTANT: Skip JWT filter for public & swagger endpoints
+        String path = request.getServletPath();
+
+        if (
+                path.startsWith("/api/auth") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/v3/api-docs")
+        ) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 1️⃣ Read Authorization header
         String authHeader = request.getHeader("Authorization");
 
@@ -63,12 +75,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
 
             List<SimpleGrantedAuthority> authorities = List.of(
-                    new SimpleGrantedAuthority(user.getRole().name()) // ADMIN / VENDOR / CUSTOMER
+                    new SimpleGrantedAuthority(user.getRole().name())
             );
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            user,   // ✅ principal = User object
+                            user,   // principal
                             null,
                             authorities
                     );

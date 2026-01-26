@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api", // ✅ FIXED
+  baseURL: "https://vms-project-production-64b2.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Attach JWT token
+// Attach JWT token to every request
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -19,7 +19,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Optional global error handling
+// Global response handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {

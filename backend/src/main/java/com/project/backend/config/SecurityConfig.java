@@ -25,81 +25,67 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // ❌ Disable CSRF (JWT based auth)
+            // Disable CSRF (JWT based auth)
             .csrf(csrf -> csrf.disable())
 
-            // ✅ Enable CORS
+            // Enable CORS
             .cors(cors -> {})
 
-            // 🔐 Authorization rules
             .authorizeHttpRequests(auth -> auth
 
-                // ✅ Allow preflight requests
+                // ===== ALLOW PREFLIGHT REQUESTS =====
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // ✅ Public auth & swagger APIs
+                // ===== PUBLIC ENDPOINTS =====
                 .requestMatchers(
-                        "/api/auth/**",
-                        "/swagger-ui.html",
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**"
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/api/auth/**"
                 ).permitAll()
 
-                // ✅ Public vehicles API (home page)
+                // ✅ PUBLIC VEHICLES API (HOME PAGE – BEFORE LOGIN)
                 .requestMatchers(
-                        HttpMethod.GET,
-                        "/api/public/**"
+                    HttpMethod.GET,
+                    "/api/public/**"
                 ).permitAll()
 
-                // 🔒 Role-based APIs
+                // ===== ROLE BASED ACCESS =====
                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/api/vendor/**").hasAuthority("VENDOR")
                 .requestMatchers("/api/customer/**").hasAuthority("CUSTOMER")
                 .requestMatchers("/api/license/**").hasAuthority("CUSTOMER")
 
-                // 🔐 Authenticated users
+                // ===== AUTHENTICATED =====
                 .requestMatchers("/api/users/**").authenticated()
 
-                // 🔐 Everything else
+                // ===== EVERYTHING ELSE =====
                 .anyRequest().authenticated()
             )
 
-            // 🧾 Stateless JWT session
+            // Stateless session (JWT)
             .sessionManagement(session ->
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // 🔑 JWT filter
+            // JWT filter
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // =========================
-    // CORS CONFIGURATION
-    // =========================
+    // ===== CORS CONFIG =====
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
-
-        // ✅ Allow Vite frontend ports
-        config.setAllowedOrigins(List.of(
-        		"http://localhost:3000", 
-                "http://localhost:5173",
-                "http://localhost:5174"
-        ));
-
-        config.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "DELETE", "OPTIONS"
-        ));
-
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
-
         source.registerCorsConfiguration("/**", config);
 
         return source;
