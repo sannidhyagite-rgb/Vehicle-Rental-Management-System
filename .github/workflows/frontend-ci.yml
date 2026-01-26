@@ -1,0 +1,41 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - development
+    paths:
+      - drivenow-frontend/**
+  pull_request:
+    branches:
+      - development
+      - main
+    paths:
+      - drivenow-frontend/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: drivenow-frontend/package-lock.json
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        working-directory: drivenow-frontend
+        run: npm install
+
+      # 4️⃣ Build frontend
+      - name: Build frontend
+        working-directory: drivenow-frontend
+        run: npm run build
