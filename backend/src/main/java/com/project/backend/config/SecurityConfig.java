@@ -25,61 +25,49 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // Disable CSRF (JWT based auth)
             .csrf(csrf -> csrf.disable())
-
-            // Enable CORS
             .cors(cors -> {})
-
             .authorizeHttpRequests(auth -> auth
 
-                // ===== ALLOW PREFLIGHT REQUESTS =====
+                // Preflight
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // ===== PUBLIC ENDPOINTS =====
+                // Public APIs
                 .requestMatchers(
-                    "/swagger-ui.html",
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/api/auth/**"
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/api/auth/**"
                 ).permitAll()
 
-                // ===== PUBLIC APIs =====
                 .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
 
-                // ===== ROLE BASED ACCESS =====
+                // Role-based
                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/api/vendor/**").hasAuthority("VENDOR")
                 .requestMatchers("/api/customer/**").hasAuthority("CUSTOMER")
                 .requestMatchers("/api/license/**").hasAuthority("CUSTOMER")
 
-                // ===== AUTHENTICATED =====
                 .requestMatchers("/api/users/**").authenticated()
-
-                // ===== EVERYTHING ELSE =====
                 .anyRequest().authenticated()
             )
-
-            // Stateless session (JWT)
             .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-
-            // JWT filter
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // ===== LOCAL CORS CONFIG =====
+    // ===== CORS CONFIG (LOCAL + VERCEL) =====
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Allow all local frontend ports
         config.setAllowedOriginPatterns(List.of(
-                "http://localhost:*"
+                "http://localhost:*",
+                "https://vms-project-psi.vercel.app"   // ✅ your Vercel frontend
         ));
 
         config.setAllowedMethods(List.of(
@@ -88,8 +76,8 @@ public class SecurityConfig {
 
         config.setAllowedHeaders(List.of("*"));
 
-        // 🔴 IMPORTANT: false for JWT in headers
-        config.setAllowCredentials(false);
+        // ✅ REQUIRED for Authorization header
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
