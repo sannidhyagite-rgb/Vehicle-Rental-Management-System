@@ -134,6 +134,42 @@
     margin-left: 6px
 }
 
+.title-with-status {
+  display: flex;
+  align-items: center;   /* key fix */
+  gap: 8px;
+}
+
+
+.badge {
+  padding: 1px 7px;        /* ⬅ slimmer */
+  border-radius: 999px;
+  font-size: 10px;         /* ⬅ smaller text */
+  font-weight: 600;
+  line-height: 1;          /* ⬅ VERY IMPORTANT */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* 🟡 Pending */
+.badge.pending {
+  background-color: #facc15;
+  color: #78350f;
+}
+
+/* 🟢 Approved */
+.badge.approved {
+  background-color: #22c55e;
+  color: #064e3b;
+}
+
+/* 🔴 Rejected */
+.badge.rejected {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+
 @media (max-width:900px) {
     .vehicles-grid {
         grid-template-columns: 1fr

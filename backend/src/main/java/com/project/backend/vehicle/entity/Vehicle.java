@@ -1,5 +1,6 @@
 package com.project.backend.vehicle.entity;
 
+import com.project.backend.vehicle.enums.VehicleBookingStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -30,6 +31,9 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private VehicleStatus status;   // PENDING, APPROVED, REJECTED
 
+    @Enumerated(EnumType.STRING)
+    private VehicleBookingStatus booking_status; // AVAILABLE, BOOKED
+
     // Verification / documents
     private String registrationNumber;
     private String rcNumber;
@@ -46,4 +50,16 @@ public class Vehicle {
     @ManyToOne
     @JoinColumn(name = "vendor_id")
     private User vendor;
+
+    @PrePersist
+    public void setDefaultValues() {
+
+        if (this.status == null) {
+            this.status = VehicleStatus.PENDING;
+        }
+
+        if (this.booking_status == null) {
+            this.booking_status = VehicleBookingStatus.AVAILABLE;
+        }
+    }
 }
