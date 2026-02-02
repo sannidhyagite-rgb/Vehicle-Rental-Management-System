@@ -7,24 +7,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@RestController 
+@RestController // creates rest api and returns json
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    /**
-     * Get logged-in user (ADMIN / CUSTOMER / VENDOR)
-     */
+  
     @GetMapping("/me")
     public User getCurrentUser(@AuthenticationPrincipal User user) {
         return user;
     }
 
-    /**
-     * Update profile (CUSTOMER)
-     */
     @PutMapping("/me")
     public User updateProfile(
             @AuthenticationPrincipal User user,
@@ -33,4 +28,5 @@ public class UserController {
         return userService.updateProfile(user.getEmail(), request);
     }
 }
+
 
