@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController 
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
@@ -33,3 +33,4 @@ public class UserController {
         return userService.updateProfile(user.getEmail(), request);
     }
 }
+
