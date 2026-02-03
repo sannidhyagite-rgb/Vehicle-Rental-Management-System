@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.project.backend.user.model.User;
 import com.project.backend.vehicle.enums.VehicleStatus;
+import com.project.backend.Location.entity.Location;
 
 @Entity
 @Table(name = "vehicles")
@@ -25,6 +26,10 @@ public class Vehicle {
     private int seats;
     private double ratePerDay;
     private String description;
+    
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     // 🔥 Admin approval status
     @Enumerated(EnumType.STRING)

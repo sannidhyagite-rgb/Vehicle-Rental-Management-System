@@ -18,7 +18,7 @@ function AdminDashboard() {
 
       {/* Stats */}
       <div className="stats-section">
-        
+
         <div className="stat-card">
           <div>
             <p className="label">Total Users</p>
@@ -40,7 +40,7 @@ function AdminDashboard() {
         <div className="stat-card">
           <div>
             <p className="label">Monthly Revenue</p>
-            <h2>$127,450</h2>
+            <h2>₹127,450</h2>
             <span className="growth">▲ +15% from last month</span>
           </div>
           <MdAttachMoney className="icon yellow" />
@@ -58,16 +58,16 @@ function AdminDashboard() {
 
       {/* Quick Actions */}
       <div className="qa-container">
-      <h3 className="qa-title">Quick Actions</h3>
+        <h3 className="qa-title">Quick Actions</h3>
 
-      <div className="quick-actions">
-        <button className="qa-btn"><FaUsers /> Manage Users</button>
-        <button className="qa-btn"><FaCar /> Vehicles</button>
-        <button className="qa-btn"><FaCalendarAlt /> Bookings</button>
-        <button className="qa-btn"><HiOutlineDocumentReport /> Reports</button>
-        <button className="qa-btn"><IoChatbubbles /> Complaints</button>
-        <button className="qa-btn"><IoIosSettings /> Settings</button>
-      </div>
+        <div className="quick-actions">
+          <button className="qa-btn"><FaUsers /> Manage Users</button>
+          <button className="qa-btn"><FaCar /> Vehicles</button>
+          <button className="qa-btn"><FaCalendarAlt /> Bookings</button>
+          <button className="qa-btn"><HiOutlineDocumentReport /> Reports</button>
+          <button className="qa-btn"><IoChatbubbles /> Complaints</button>
+          <button className="qa-btn"><IoIosSettings /> Settings</button>
+        </div>
       </div>
     </div>
   );

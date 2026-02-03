@@ -6,12 +6,6 @@ import AdminLayout from "./layouts/AdminLayout";
 import VendorLayout from "./layouts/VendorLayout";
 
 /* Common */
-/* ================= ADMIN ================= */
-import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
-import AdminUser from "./components/Admin/AdminUser/AdminUser";
-import AdminNavbar from "./components/Admin/AdminNavbar/Navbar";
-
-/* ================= COMMON ================= */
 import Navbar from "./components/layout/Navbar";
 import CNavbar from "./components/layout/CNavbar";
 import Hero from "./components/layout/Hero";
@@ -27,25 +21,11 @@ import LoginOtp from "./components/auth/LoginOtp";
 /* Admin */
 import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
 import AdminUser from "./components/Admin/AdminUser/AdminUser";
+import AdminNavbar from "./components/Admin/AdminNavbar/Navbar";
 import AdminLicenseVerification from "./pages/admin/AdminLicenseVerification";
+import AdminVehicles from "./pages/admin/vehicles/AdminVehicles";
 
 /* Vendor */
-import VendorDashboard from "./vendor/dashboard/VendorDashboard";
-/* ================= AUTH ================= */
-import LoginPage from "./components/auth/LoginPage";
-import SignupPage from "./components/auth/SignupPage";
-
-/* ================= CUSTOMER ================= */
-import MyBookings from "./components/MyBooking/MyBookings";
-import BookingInfo from "./components/MyBooking/BookingInfo";
-import Payment from "./components/MyBooking/Payment";
-import Confirmation from "./components/MyBooking/Confirmation";
-import CustomerDashboard from "./pages/CustomerDashboard";
-import VehicleDetails from "./pages/VehicleDetails";
-import VendorRegister from "./pages/VendorRegister";
-import CNavbar from "./components/layout/CNavbar";
-
-/* ================= VENDOR ================= */
 import VendorNavbar from "./vendor/layout/VendorNavbar";
 import VendorProfile from "./vendor/profile/VendorProfile";
 import MyVehicles from "./vendor/vehicles/MyVehicles";
@@ -54,22 +34,19 @@ import VendorEarnings from "./vendor/earnings/VendorEarnings";
 import VendorNotifications from "./vendor/notifications/VendorNotifications";
 import VendorDashboard from "./vendor/dashboard/VendorDashboard";
 
-/* ================= OPTIONAL (ADD LATER) ================= */
-// import Payment from "./pages/Payment";
-// import Confirmation from "./pages/Confirmation";
-
-/* ================= LAYOUTS ================= */
-
 /* Customer */
 import CustomerDashboard from "./pages/CustomerDashboard";
 import CustomerProfile from "./pages/customer/CustomerProfile";
 import MyBookings from "./components/MyBooking/MyBookings";
+import BookingInfo from "./components/MyBooking/BookingInfo";
+import Payment from "./components/MyBooking/Payment";
+import Confirmation from "./components/MyBooking/Confirmation";
+import Receipt from "./components/MyBooking/Receipt";
 import VehicleDetails from "./pages/VehicleDetails";
 import VendorRegister from "./pages/VendorRegister";
 
 /* Security */
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AdminVehicles from "./pages/admin/vehicles/AdminVehicles";
 
 
 /* Home */
@@ -343,8 +320,9 @@ function App() {
 
         {/* Booking Flow */}
         <Route path="/booking-info" element={<BookingInfo />} />
-         <Route path="/payment" element={<Payment />} />
-         <Route path="/confirmation" element={<Confirmation />} /> 
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/receipt" element={<Receipt />} />
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />

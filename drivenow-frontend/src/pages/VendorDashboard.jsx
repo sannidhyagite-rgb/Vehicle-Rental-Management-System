@@ -9,14 +9,14 @@ function VendorDashboard() {
   const stats = [
     { id: 1, label: "Total Vehicles", value: 12, change: "+2", icon: "🚗" },
     { id: 2, label: "Bookings Today", value: 8, change: "+15%", icon: "📅" },
-    { id: 3, label: "Revenue This Month", value: "$2,450", change: "+28%", icon: "💰" },
+    { id: 3, label: "Revenue This Month", value: "₹2,450", change: "+28%", icon: "💰" },
     { id: 4, label: "Avg Rating", value: "4.8⭐", change: null, icon: "⭐" }
   ];
 
   const recentBookings = [
-    { id: 1, customer: "John Doe", vehicle: "BMW X5", date: "Today 2:30PM", status: "Active", amount: "$89" },
-    { id: 2, customer: "Sarah Kim", vehicle: "Tesla Model 3", date: "Yesterday", status: "Completed", amount: "$79" },
-    { id: 3, customer: "Mike Ross", vehicle: "Mercedes C-Class", date: "Dec 5", status: "Pending", amount: "$95" }
+    { id: 1, customer: "John Doe", vehicle: "BMW X5", date: "Today 2:30PM", status: "Active", amount: "₹89" },
+    { id: 2, customer: "Sarah Kim", vehicle: "Tesla Model 3", date: "Yesterday", status: "Completed", amount: "₹79" },
+    { id: 3, customer: "Mike Ross", vehicle: "Mercedes C-Class", date: "Dec 5", status: "Pending", amount: "₹95" }
   ];
 
   const quickActions = [
@@ -57,26 +57,26 @@ function VendorDashboard() {
             <div className="position-sticky pt-3">
               <ul className="nav flex-column">
                 <li className="nav-item">
-                  <a className={`nav-link ${activeTab === 'overview' ? 'active bg-primary text-white' : ''}`} 
-                     onClick={() => setActiveTab('overview')}>
+                  <a className={`nav-link ${activeTab === 'overview' ? 'active bg-primary text-white' : ''}`}
+                    onClick={() => setActiveTab('overview')}>
                     📊 Overview
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className={`nav-link ${activeTab === 'vehicles' ? 'active bg-primary text-white' : ''}`} 
-                     onClick={() => setActiveTab('vehicles')}>
+                  <a className={`nav-link ${activeTab === 'vehicles' ? 'active bg-primary text-white' : ''}`}
+                    onClick={() => setActiveTab('vehicles')}>
                     🚗 My Vehicles
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className={`nav-link ${activeTab === 'bookings' ? 'active bg-primary text-white' : ''}`} 
-                     onClick={() => setActiveTab('bookings')}>
+                  <a className={`nav-link ${activeTab === 'bookings' ? 'active bg-primary text-white' : ''}`}
+                    onClick={() => setActiveTab('bookings')}>
                     📋 Bookings
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className={`nav-link ${activeTab === 'earnings' ? 'active bg-primary text-white' : ''}`} 
-                     onClick={() => setActiveTab('earnings')}>
+                  <a className={`nav-link ${activeTab === 'earnings' ? 'active bg-primary text-white' : ''}`}
+                    onClick={() => setActiveTab('earnings')}>
                     💰 Earnings
                   </a>
                 </li>
@@ -152,7 +152,7 @@ function VendorDashboard() {
                                     {booking.status}
                                   </span>
                                 </td>
-                                <td><strong>${booking.amount}</strong></td>
+                                <td><strong>₹{booking.amount}</strong></td>
                               </tr>
                             ))}
                           </tbody>

@@ -6,8 +6,8 @@ function VehicleCard({ id, name, type, rating, price, tags, image }) {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/vehicle/${id}`, { 
-      state: { id, name, type, rating, price, tags, image } 
+    navigate(`/vehicle/${id}`, {
+      state: { id, name, type, rating, price, tags, image }
     });
   };
 
@@ -39,13 +39,13 @@ function VehicleCard({ id, name, type, rating, price, tags, image }) {
                 </span>
               ))}
               {tags.length > 3 && (
-                <span className="badge bg-secondary">+{tags.length-3}</span>
+                <span className="badge bg-secondary">+{tags.length - 3}</span>
               )}
             </div>
 
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="text-primary mb-0">
-                ${price}
+                ₹{price}
                 <small className="text-muted">/day</small> {/* ✅ Original price */}
               </h5>
 

@@ -144,6 +144,12 @@ function LoginOtp() {
           >
             {loading ? "Sending OTP..." : "Send OTP"}
           </button>
+
+          <div className="text-center mt-3">
+            <small>
+              Don't have an account? <a href="/signup" className="text-decoration-none">Register here</a>
+            </small>
+          </div>
         </div>
       </div>
 
