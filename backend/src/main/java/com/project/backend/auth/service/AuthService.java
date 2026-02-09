@@ -52,7 +52,7 @@ public class AuthService {
             throw new RuntimeException("Invalid email or password");
         }
 
-        // 🔥 FIX: include ROLE in JWT
+        // FIX: include ROLE in JWT
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole().name()
@@ -69,7 +69,7 @@ public class AuthService {
         User user = userRepository.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // 🔥 FIX: include ROLE in JWT
+        // FIX: include ROLE in JWT
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole().name()

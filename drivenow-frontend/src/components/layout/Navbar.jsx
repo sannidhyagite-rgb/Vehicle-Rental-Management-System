@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-left">
-        <div className="logo-icon">🚗</div>
+        <div className="logo-icon"></div>
         <span className="logo-text">DriveNow</span>
       </div>
 

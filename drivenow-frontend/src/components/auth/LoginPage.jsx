@@ -69,13 +69,13 @@ function LoginPage() {
       setLoading(false);
 
       // -------------------------
-      // 🎯 TEST LOGIN ACCOUNTS
+      // TEST LOGIN ACCOUNTS
       // -------------------------
 
       const mockCustomerEmails = ["customer@example.com"];
       const mockVendorEmails = ["vendor@example.com"];
 
-      // ⭐ YOUR NEW ADMIN LOGIN (REQUESTED BY YOU)
+      // YOUR NEW ADMIN LOGIN (REQUESTED BY YOU)
       const mockAdminEmails = ["superadmin@drivenow.com"];
 
       const userEmail = email.toLowerCase().trim();

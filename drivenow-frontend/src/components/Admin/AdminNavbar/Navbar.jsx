@@ -7,7 +7,7 @@ function AdminNavbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // 🔐 Clear auth data
+    // Clear auth data
     localStorage.removeItem("token");
     localStorage.removeItem("role");
 
@@ -28,7 +28,7 @@ function AdminNavbar() {
 
     return (
       <nav className="navbar">
-        <div className="logo">🚗 DriveNow</div>
+        <div className="logo">DriveNow</div>
 
         <ul className="nav-menu">
           <div className="navlist">
@@ -56,7 +56,7 @@ function AdminNavbar() {
               License Verification
             </NavLink>
 
-            {/* 🔥 NEW: Vehicles (Approve / Reject) */}
+            {/* Vehicles (Approve / Reject) */}
             <NavLink
               to="/admin/vehicles"
               className={({ isActive }) => (isActive ? "active" : "")}
@@ -93,7 +93,7 @@ function AdminNavbar() {
         </ul>
 
         <div className="profile-section">
-          <span>👤 Admin</span>
+          <span>Admin</span>
           <button
             type="button"
             className="btn btn-outline-danger"

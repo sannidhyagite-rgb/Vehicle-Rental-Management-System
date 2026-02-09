@@ -30,9 +30,9 @@ export default function VehicleCardVendor({ v }) {
           </div>
 
           <div className="actions">
-            <button className="action">👁</button>
-            <button className="action">✎</button>
-            <button className="action">⋯</button>
+            <button className="action">View</button>
+            <button className="action">Edit</button>
+            <button className="action">More</button>
           </div>
         </div>
       </div>
