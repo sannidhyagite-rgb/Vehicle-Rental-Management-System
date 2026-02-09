@@ -27,8 +27,9 @@ function VehicleCard({ vehicle }) {
   ];
 
   const handleViewDetails = () => {
-    // ✅ ONLY navigate by ID (no state passing)
-    navigate(`/vehicle/${id}`);
+    navigate(`/vehicle/${id}`, {
+      state: { id, name, type, rating, price, tags, image }
+    });
   };
 
   return (
@@ -63,13 +64,16 @@ function VehicleCard({ vehicle }) {
                   {tag}
                 </span>
               ))}
+              {tags.length > 3 && (
+                <span className="badge bg-secondary">+{tags.length - 3}</span>
+              )}
             </div>
 
             {/* PRICE + CTA */}
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="text-primary mb-0">
                 ₹{price}
-                <small className="text-muted"> / day</small>
+                <small className="text-muted">/day</small> {/* ✅ Original price */}
               </h5>
 
               <button

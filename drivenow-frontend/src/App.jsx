@@ -26,11 +26,13 @@ import LoginOtp from "./components/auth/LoginOtp";
 /* ================= ADMIN ================= */
 import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
 import AdminUser from "./components/Admin/AdminUser/AdminUser";
+import AdminNavbar from "./components/Admin/AdminNavbar/Navbar";
 import AdminLicenseVerification from "./pages/admin/AdminLicenseVerification";
 import AdminVehicles from "./pages/admin/vehicles/AdminVehicles";
 
 /* ================= VENDOR ================= */
 import VendorDashboard from "./vendor/dashboard/VendorDashboard";
+import VendorNavbar from "./vendor/layout/VendorNavbar";
 import VendorProfile from "./vendor/profile/VendorProfile";
 import MyVehicles from "./vendor/vehicles/MyVehicles";
 import AddVehicle from "./vendor/vehicles/AddVehicle";
@@ -39,15 +41,20 @@ import VendorNotifications from "./vendor/notifications/VendorNotifications";
 import VendorRegister from "./pages/VendorRegister";
 
 /* ================= CUSTOMER ================= */
-import CustomerDashboard from "./pages/customer/CustomerDashboard";
+import CustomerDashboard from "./pages/CustomerDashboard";
 import CustomerProfile from "./pages/customer/CustomerProfile";
 import MyBookings from "./components/MyBooking/MyBookings";
-import VehicleDetails from "./pages/VehicleDetails";
-
-/* ================= BOOKING FLOW ================= */
 import BookingInfo from "./components/MyBooking/BookingInfo";
 import Payment from "./components/MyBooking/Payment";
 import Confirmation from "./components/MyBooking/Confirmation";
+import Receipt from "./components/MyBooking/Receipt";
+import VehicleDetails from "./pages/VehicleDetails";
+
+/* ================= BOOKING FLOW ================= */
+// Imported above in Customer section or handled in routes below
+
+/* Security */
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 /* ================= HOME PAGE ================= */
 function Home() {
@@ -226,7 +233,26 @@ function App() {
           }
         />
 
-        {/* ========== FALLBACK ========= */}
+        {/* ================= FALLBACK ================= */}
+        {/* Vehicle Details */}
+        <Route
+          path="/vehicle/:id"
+          element={
+            <>
+              <CNavbar />
+              <VehicleDetails />
+            </>
+          }
+        />
+
+        {/* Booking Flow */}
+        <Route path="/booking-info" element={<BookingInfo />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/receipt" element={<Receipt />} />
+
+        {/* 404 */}
+
         <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>

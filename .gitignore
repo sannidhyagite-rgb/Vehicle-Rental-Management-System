@@ -1,22 +1,6 @@
-<<<<<<< HEAD
-# Eclipse
-.metadata/
-.project
-.classpath
-.settings/
-
-# Maven
-target/
-
-# Node
-node_modules/
-
-# Compiled class file
-=======
 # =====================
 # Java / JVM
 # =====================
->>>>>>> booking
 *.class
 *.log
 *.ctxt
@@ -34,9 +18,6 @@ node_modules/
 # JVM crash logs
 hs_err_pid*
 replay_pid*
-<<<<<<< HEAD
-/.metadata/
-=======
 
 # =====================
 # Maven / Spring Boot
@@ -64,4 +45,3 @@ dist/
 # =====================
 .DS_Store
 Thumbs.db
->>>>>>> booking

@@ -13,15 +13,15 @@ const SummaryCards = ({ upcomingCount, completedCount, totalSpent }) => {
       </div>
 
       <div className="summary-card">
-          <img src={completedIcon} alt="Completed Icon" className="summary-icon" />
+        <img src={completedIcon} alt="Completed Icon" className="summary-icon" />
         <p>Completed</p>
         <h2>{completedCount}</h2>
       </div>
 
       <div className="summary-card">
-          <img src={spentIcon} alt="Completed Icon" className="summary-icon" />
+        <img src={spentIcon} alt="Completed Icon" className="summary-icon" />
         <p>Total Spent</p>
-        <h2>${totalSpent}</h2>
+        <h2>₹{totalSpent}</h2>
       </div>
     </div>
   );

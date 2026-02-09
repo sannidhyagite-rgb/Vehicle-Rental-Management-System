@@ -15,6 +15,10 @@ public class AdminVehicleResponseDTO {
     private String transmission;
     private int seats;
     private double ratePerDay;
+    
+    // Location
+    private String city;
+    private String address;
 
     // Admin workflow
     private String status;   // PENDING / APPROVED / REJECTED

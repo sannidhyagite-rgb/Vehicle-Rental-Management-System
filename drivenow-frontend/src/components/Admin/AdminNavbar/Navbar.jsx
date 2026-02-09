@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
@@ -14,22 +14,23 @@ function AdminNavbar() {
     navigate("/admin/login", { replace: true });
   };
 
-  const linkStyle = {
-    textDecoration: "none",
-    color: "inherit",
+  const styles = {
+    link: {
+      textDecoration: "none",
+      color: "inherit",
+    },
   };
 
   return (
     <nav className="navbar">
-      {/* Logo */}
       <div className="logo">🚗 DriveNow</div>
 
-      {/* Navigation Links */}
       <ul className="nav-menu">
         <div className="navlist">
+
           <NavLink
             to="/admin/dashboard"
-            style={linkStyle}
+            style={styles.link}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Dashboard
@@ -37,7 +38,7 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/users"
-            style={linkStyle}
+            style={styles.link}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Users
@@ -45,15 +46,14 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/license-verification"
-            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             License Verification
           </NavLink>
 
+          {/* 🔥 NEW: Vehicles (Approve / Reject) */}
           <NavLink
             to="/admin/vehicles"
-            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Vehicles
@@ -61,7 +61,6 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/bookings"
-            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Bookings
@@ -69,7 +68,6 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/reports"
-            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Reports
@@ -77,7 +75,6 @@ function AdminNavbar() {
 
           <NavLink
             to="/admin/complaints"
-            style={linkStyle}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Complaints
@@ -85,7 +82,6 @@ function AdminNavbar() {
         </div>
       </ul>
 
-      {/* Profile Section */}
       <div className="profile-section">
         <span>👤 Admin</span>
         <button
@@ -101,3 +97,4 @@ function AdminNavbar() {
 }
 
 export default AdminNavbar;
+

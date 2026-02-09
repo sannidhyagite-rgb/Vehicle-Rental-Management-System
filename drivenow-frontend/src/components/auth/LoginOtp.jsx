@@ -132,12 +132,11 @@ function LoginOtp() {
           </>
         )}
 
-        {/* REGISTER LINK */}
+        {/* REGISTER LINK - Merged from booking-backend */}
         <div className="text-center mt-3">
-          <span className="text-muted">New user?</span>{" "}
-          <Link to="/signup" className="fw-semibold">
-            Create an account
-          </Link>
+          <small>
+            Don't have an account? <a href="/signup" className="text-decoration-none">Register here</a>
+          </small>
         </div>
       </div>
     </div>

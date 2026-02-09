@@ -1,28 +1,29 @@
 package com.project.backend.vehicle.controller;
 
-import com.project.backend.vehicle.dto.CustomerVehicleResponseDTO;
-import com.project.backend.vehicle.service.CustomerVehicleService;
+import com.project.backend.vehicle.dto.AdminVehicleResponseDTO;
+import com.project.backend.vehicle.service.PublicVehicleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/public/vehicles")
+@RequestMapping("/api/vehicles")
 @RequiredArgsConstructor
 public class PublicVehicleController {
 
-    private final CustomerVehicleService customerVehicleService;
+    private final PublicVehicleService publicVehicleService;
 
+    // Get All Approved Vehicles
     @GetMapping
-    public List<CustomerVehicleResponseDTO> getPublicVehicles() {
-        return customerVehicleService.getApprovedVehicles();
+    public ResponseEntity<List<AdminVehicleResponseDTO>> getAllVehicles() {
+        return ResponseEntity.ok(publicVehicleService.getAllApprovedVehicles());
     }
 
+    // Get Vehicle By ID
     @GetMapping("/{id}")
-    public CustomerVehicleResponseDTO getPublicVehicleById(
-            @PathVariable Long id
-    ) {
-        return customerVehicleService.getVehicleById(id);
+    public ResponseEntity<AdminVehicleResponseDTO> getVehicleById(@PathVariable Long id) {
+        return ResponseEntity.ok(publicVehicleService.getVehicleById(id));
     }
 }

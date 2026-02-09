@@ -6,6 +6,7 @@ import com.project.backend.vehicle.enums.TransmissionType;
 import com.project.backend.vehicle.enums.FuelType;
 import com.project.backend.vehicle.enums.CarType;
 import com.project.backend.user.model.User;
+import com.project.backend.Location.entity.Location;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -44,6 +45,10 @@ public class Vehicle {
     private double ratePerDay;
 
     private String description;
+    
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     // Admin approval status
     @Enumerated(EnumType.STRING)

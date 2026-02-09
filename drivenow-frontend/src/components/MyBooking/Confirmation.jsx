@@ -1,10 +1,63 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Confirmation.css";
 import carIcon from "../../assets/car.png";
+import { getBookingById } from "../../api/bookingApi";
 
 const Confirmation = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { bookingId } = location.state || {};
+  const [booking, setBooking] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!bookingId) {
+      alert("No booking ID found. Returning to home.");
+      navigate("/");
+      return;
+    }
+
+    const fetchBooking = async () => {
+      try {
+        const response = await getBookingById(bookingId);
+        setBooking(response.data);
+      } catch (error) {
+        console.error("Error fetching booking details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooking();
+  }, [bookingId, navigate]);
+
+  if (loading) return (
+    <div className="confirmation-wrapper" style={{ textAlign: "center", paddingTop: "50px" }}>
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+      <p className="mt-2">Loading booking confirmation...</p>
+    </div>
+  );
+
+  if (!booking) return (
+    <div className="confirmation-wrapper" style={{ textAlign: "center", paddingTop: "50px" }}>
+      <div className="alert alert-danger">
+        <h4>Error Loading Booking</h4>
+        <p>Could not retrieve booking details. Please checks your "My Bookings" page.</p>
+        <button className="btn btn-primary mt-3" onClick={() => navigate("/mybookings")}>
+          Go to My Bookings
+        </button>
+      </div>
+    </div>
+  );
+
+  // Calculate days for display
+  const startDate = new Date(booking.pickupDateTime);
+  const endDate = new Date(booking.returnDateTime);
+  const diffTime = Math.abs(endDate - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
 
   return (
     <div className="confirmation-wrapper">
@@ -24,26 +77,27 @@ const Confirmation = () => {
         </div>
 
         <p className="meta">
-          Confirmation Number: • • • &nbsp; | &nbsp; Booked on 1/21/2026
+          Confirmation Number: <strong>#{booking.bookingId}</strong> &nbsp; | &nbsp; Booked on {new Date().toLocaleDateString()}
         </p>
 
         <div className="details-grid">
           <div>
             <h4>Vehicle Information</h4>
             <img src={carIcon} alt="car" />
-            <strong>BMW X5</strong>
-            <p>Vehicle ID: 1</p>
+            <strong>{booking.vehicleName || "Vehicle"}</strong>
+            <p>Vehicle ID: {booking.vehicleId}</p>
           </div>
 
           <div>
             <h4>Rental Details</h4>
-            <p><strong>Pickup:</strong> Invalid Date</p>
-            <p><strong>Return:</strong> Invalid Date</p>
-            <p>
+            <p><strong>Pickup:</strong> {startDate.toLocaleString()}</p>
+            <p><strong>Return:</strong> {endDate.toLocaleString()}</p>
+            {/*  <p>
               <strong>Pickup & Return Location:</strong><br />
-              Downtown<br />
-              123 Main St, Downtown, NY 10001
-            </p>
+               FIXME: Backend DTO might not return full location details yet, or it handles it differently.
+               Using data from vehicle if available or static fallback for now if not in DTO 
+               {booking.location || "Location details provided at checkout"}
+            </p> */}
           </div>
         </div>
       </div>
@@ -53,8 +107,8 @@ const Confirmation = () => {
         <h3>Payment Summary</h3>
 
         <div className="row">
-          <span>Vehicle rental (3 days)</span>
-          <span>$267.00</span>
+          <span>Vehicle rental ({diffDays} days)</span>
+          <span>₹{booking.totalAmount}</span>
         </div>
         <div className="row">
           <span>Insurance</span>
@@ -62,14 +116,17 @@ const Confirmation = () => {
         </div>
         <div className="row">
           <span>Taxes & fees</span>
-          <span>$24.30</span>
+          <span>₹0.00</span>
         </div>
 
         <hr />
 
         <div className="row total">
           <span>Total Paid</span>
-          <span>$0.00</span>
+          <span>₹{booking.totalAmount}</span>
+        </div>
+        <div className="row">
+          <small className="text-muted w-100 text-end">Payment verified via Razorpay</small>
         </div>
       </div>
 
@@ -110,41 +167,13 @@ const Confirmation = () => {
         </button>
       </div>
 
-      {/* WHAT'S NEXT */}
-      <div className="card">
-        <h3>What's Next?</h3>
-
-        <div className="next-step active">
-          <span>1</span>
-          <div>
-            <strong>Confirmation Email Sent</strong>
-            <p>Check your email for detailed booking information</p>
-          </div>
-        </div>
-
-        <div className="next-step">
-          <span>2</span>
-          <div>
-            <strong>Pickup Reminder</strong>
-            <p>You'll receive a reminder 24 hours before pickup</p>
-          </div>
-        </div>
-
-        <div className="next-step">
-          <span>3</span>
-          <div>
-            <strong>Vehicle Pickup</strong>
-            <p>Complete your rental at the pickup location</p>
-          </div>
-        </div>
-      </div>
 
       {/* BOTTOM NAV */}
       <div className="bottom-nav">
         <button className="outline" onClick={() => navigate("/")}>
           Back to Home
         </button>
-        <button className="primary" onClick={() => navigate("/vehicles")}>
+        <button className="primary" onClick={() => navigate("/")}>
           Browse More Vehicles
         </button>
       </div>

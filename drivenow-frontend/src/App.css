@@ -100,6 +100,15 @@ body {
   color: white;
 }
 
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
 .btn-dark {
   background: #111827;
   color: white;
@@ -288,9 +297,11 @@ body {
 .v1 {
   background-image: url("https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg");
 }
+
 .v2 {
   background-image: url("https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg");
 }
+
 .v3 {
   background-image: url("https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg");
 }
@@ -374,6 +385,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  
-  
+
+
 }
