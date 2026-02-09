@@ -13,7 +13,7 @@ import com.project.backend.Booking.entity.Booking;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // =====================================================
-    // 1️⃣ UPCOMING BOOKINGS (UPCOMING + CONFIRMED)
+    // 1️ UPCOMING BOOKINGS (UPCOMING + CONFIRMED)
     // WITH VEHICLE + LOCATION
     // =====================================================
 	@Query("""
@@ -31,7 +31,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
 
     // =====================================================
-    // 2️⃣ COMPLETED BOOKINGS (WITH VEHICLE + LOCATION)
+    // 2️ COMPLETED BOOKINGS (WITH VEHICLE + LOCATION)
     // =====================================================
 	@Query("""
 		    SELECT b
@@ -48,7 +48,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
 
     // =====================================================
-    // 3️⃣ COUNT BY STATUS
+    // 3️ COUNT BY STATUS
     // =====================================================
     long countByCustomer_UserIdAndStatus(
             Long userId,
@@ -61,7 +61,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     );
 
     // =====================================================
-    // 4️⃣ TOTAL AMOUNT SPENT (COMPLETED ONLY)
+    // 4️ TOTAL AMOUNT SPENT (COMPLETED ONLY)
     // =====================================================
     @Query("""
         SELECT COALESCE(SUM(b.totalAmount), 0)
@@ -75,7 +75,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     );
 
     // =====================================================
-    // 5️⃣ GET SINGLE BOOKING BY ID (OWNER ONLY)
+    // 5️ GET SINGLE BOOKING BY ID (OWNER ONLY)
     // WITH VEHICLE + LOCATION
     // =====================================================
     @Query("""
