@@ -109,7 +109,7 @@ function VehicleDetails() {
               style={{ height: "450px", objectFit: 'cover' }}
             />
             <div className="position-absolute top-3 end-0 p-3">
-              <span className="badge bg-warning text-dark fs-5 fw-bold">⭐ {vehicle.rating}</span>
+              <span className="badge bg-warning text-dark fs-5 fw-bold"> {vehicle.rating}</span>
             </div>
           </div>
 
@@ -119,10 +119,11 @@ function VehicleDetails() {
               className="btn btn-outline-primary btn-lg px-4"
               onClick={() => setShowReviews(true)}
             >
-              🗨️ View Customer Reviews ({reviews.length})
+              View Customer Reviews ({reviews.length})
             </button>
           </div>
         </div>
+
 
         {/* Details Panel */}
         <div className="col-lg-5">

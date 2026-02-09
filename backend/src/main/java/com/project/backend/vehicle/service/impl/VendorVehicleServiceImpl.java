@@ -39,7 +39,7 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
     @Override
     public void addVehicle(AddVehicleRequestDTO dto, List<MultipartFile> images) {
 
-        // 🔐 Get logged-in vendor
+        // Get logged-in vendor
         User vendor = userRepository.findByEmail(
                 CurrentUserUtil.getLoggedInEmail()
         ).orElseThrow(() -> new RuntimeException("Logged-in vendor not found"));
@@ -63,13 +63,13 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
         vehicle.setChassisLast4(dto.getChassisLast4());
         vehicle.setEngineNumber(dto.getEngineNumber());
 
-        // 🔥 IMPORTANT: Admin approval workflow
+        // IMPORTANT: Admin approval workflow
         vehicle.setStatus(VehicleStatus.PENDING);
         vehicle.setVendor(vendor);
 
         Vehicle savedVehicle = vehicleRepository.save(vehicle);
 
-        // 📷 Store images
+        // Store images
         if (images != null && !images.isEmpty()) {
             for (MultipartFile img : images) {
                 try {
@@ -104,7 +104,7 @@ public class VendorVehicleServiceImpl implements VendorVehicleService {
                     VendorVehicleResponseDTO dto = new VendorVehicleResponseDTO();
                     dto.setId(vehicle.getId());
                     dto.setTitle(vehicle.getCompany() + " " + vehicle.getModel());
-                    dto.setSubtitle(vehicle.getYear() + " • " + vehicle.getFuel());
+                    dto.setSubtitle(vehicle.getYear() + " - " + vehicle.getFuel());
                     dto.setStatus(vehicle.getStatus().name());
                     dto.setRatePerDay(vehicle.getRatePerDay());
 

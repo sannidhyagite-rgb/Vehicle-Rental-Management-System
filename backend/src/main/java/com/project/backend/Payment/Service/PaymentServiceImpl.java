@@ -77,17 +77,17 @@ public class PaymentServiceImpl implements PaymentService{
         String signature = data.get("razorpay_signature");
         Long bookingId = Long.valueOf(data.get("booking_id"));
 
-        // 1️⃣ VERIFY PAYMENT
+        // VERIFY PAYMENT
         boolean valid = true;//verify(orderId, paymentId, signature);
         if (!valid) {
             throw new RuntimeException("Invalid payment");
         }
 
-        // 2️⃣ FETCH BOOKING
+        // FETCH BOOKING
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
 
-        // 3️⃣ SAVE PAYMENT
+        // SAVE PAYMENT
         Payment payment = Payment.builder()
                 .booking(booking)
                 .paymentMethod(PaymentMethod.GATEWAY)
@@ -95,14 +95,14 @@ public class PaymentServiceImpl implements PaymentService{
                 .amount(booking.getTotalAmount())
                 .paymentStatus(PaymentStatus.SUCCESS)
                 .transactionReference(paymentId)
-                .gatewayResponse(new org.json.JSONObject(data).toString()) // ✅ FIX HERE
+                .gatewayResponse(new org.json.JSONObject(data).toString()) // FIX HERE
                 .paymentDate(LocalDateTime.now())
                 .build();
 
 
         paymentRepository.save(payment);
 
-        // 4️⃣ UPDATE BOOKING STATUS
+        // UPDATE BOOKING STATUS
         booking.setStatus(BookingStatus.CONFIRMED);
     }
 }

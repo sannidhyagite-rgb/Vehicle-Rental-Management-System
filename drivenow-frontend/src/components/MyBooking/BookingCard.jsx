@@ -98,21 +98,21 @@ const BookingCard = ({ data, tab, onRefresh }) => {
                 className="action-btn modify"
                 onClick={handleModify}
               >
-                ✏️ Modify
+                Modify
               </button>
 
               <button
                 className="action-btn cancel"
                 onClick={handleCancel}
               >
-                ✖ Cancel
+                Cancel
               </button>
 
               <button
                 className="action-btn receipt"
                 onClick={() => navigate("/receipt", { state: { booking: data } })}
               >
-                📄 Receipt
+                Receipt
               </button>
             </>
           )}
@@ -122,7 +122,7 @@ const BookingCard = ({ data, tab, onRefresh }) => {
               className="action-btn receipt"
               onClick={() => navigate("/receipt", { state: { booking: data } })}
             >
-              📄 Receipt
+              Receipt
             </button>
           )}
         </div>

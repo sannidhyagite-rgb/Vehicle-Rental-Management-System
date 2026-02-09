@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-      {/* BRAND */}
-      <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
-        <span className="fs-4 me-2">🚗</span>
-        DriveNow
-      </Link>
+    <header className="navbar">
+      <div className="navbar-left">
+        <div className="logo-icon"></div>
+        <span className="logo-text">DriveNow</span>
+      </div>
 
       <nav className="navbar-center">
         <Link to="/" className="nav-link">
@@ -28,7 +27,7 @@ function Navbar() {
           Sign Up
         </Link>
       </div>
-    </nav>
+    </header>
   );
 }
 

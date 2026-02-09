@@ -6,7 +6,7 @@ function AdminNavbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // 🔐 Clear auth data
+    // Clear auth data
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("user");
@@ -23,7 +23,7 @@ function AdminNavbar() {
 
   return (
     <nav className="navbar">
-      <div className="logo">🚗 DriveNow</div>
+      <div className="logo">DriveNow</div>
 
       <ul className="nav-menu">
         <div className="navlist">
