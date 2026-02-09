@@ -52,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
 
 
     // =========================
-    // 🔐 CURRENT USER ID (JWT)
+    //  CURRENT USER ID (JWT)
     // =========================
     private Long getCurrentUserId() {
         String email = securityUtil.getCurrentUserEmail();
@@ -62,7 +62,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     // =========================
-    // ➕ CREATE BOOKING
+    //  CREATE BOOKING
     // =========================
     @Override
     public BookingResponseDTO createBooking(com.project.backend.Booking.DTO.BookingRequestDTO request) {
@@ -101,14 +101,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     // =========================
-    // 📊 BOOKING SUMMARY
+    //  BOOKING SUMMARY
     // =========================
     @Override
     public BookingSummaryDTO getBookingSummary() {
 
         Long userId = getCurrentUserId();
 
-        // ✅ UPCOMING = UPCOMING + CONFIRMED
+        //  UPCOMING = UPCOMING + CONFIRMED
         long upcoming = bookingRepository.countByCustomer_UserIdAndStatusIn(
                 userId,
                 List.of(BookingStatus.UPCOMING, BookingStatus.CONFIRMED)
@@ -129,7 +129,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     // =========================
-    // ⏳ UPCOMING BOOKINGS
+    //  UPCOMING BOOKINGS
     // =========================
     @Override
     public List<BookingResponseDTO> getUpcomingBookings() {
@@ -149,7 +149,7 @@ public class BookingServiceImpl implements BookingService {
 
 
     // =========================
-    // ✅ COMPLETED BOOKINGS
+    //  COMPLETED BOOKINGS
     // =========================
     @Override
     public List<BookingResponseDTO> getCompletedBookings() {
@@ -168,7 +168,7 @@ public class BookingServiceImpl implements BookingService {
 
 
     // =========================
-    // 👁️ VIEW BOOKING
+    //  VIEW BOOKING
     // =========================
     @Override
     public BookingResponseDTO getBookingById(Long bookingId) {
@@ -179,12 +179,12 @@ public class BookingServiceImpl implements BookingService {
                 .findByBookingIdAndCustomer_UserId(bookingId, userId)
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
 
-        return mapToResponseDTO(booking);   // ✅ HERE
+        return mapToResponseDTO(booking);   //  HERE
 
     }
 
     // =========================
-    // ❌ CANCEL BOOKING
+    //  CANCEL BOOKING
     // =========================
     @Override
     public void cancelBooking(Long bookingId) {
@@ -203,7 +203,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     // =========================
-    // ✏️ GET BOOKING FOR MODIFY
+    //  GET BOOKING FOR MODIFY
     // =========================
     @Override
     public BookingModifyDTO getBookingForModify(Long bookingId) {
@@ -224,7 +224,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     // =========================
-    // 🔄 UPDATE BOOKING
+    //  UPDATE BOOKING
     // =========================
     @Override
     public BookingModifyDTO updateBooking(Long bookingId, BookingModifyDTO dto) {
