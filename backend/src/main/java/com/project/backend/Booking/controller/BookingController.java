@@ -19,43 +19,43 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    // 🔹 Create Booking
+    // Create Booking
     @PostMapping
     public BookingResponseDTO createBooking(@RequestBody com.project.backend.Booking.DTO.BookingRequestDTO request) {
         return bookingService.createBooking(request);
     }
 
-    // 🔹 Summary cards
+    //  Summary cards
     @GetMapping("/summary")
     public BookingSummaryDTO getSummary() {
         return bookingService.getBookingSummary();
     }
 
-    // 🔹 Upcoming bookings
+    //  Upcoming bookings
     @GetMapping("/upcoming")
     public List<BookingResponseDTO> upcoming() {
         return bookingService.getUpcomingBookings();
     }
 
-    // 🔹 Completed bookings
+    //  Completed bookings
     @GetMapping("/completed")
     public List<BookingResponseDTO> completed() {
         return bookingService.getCompletedBookings();
     }
 
-    // 🔹 View booking (READ)
+    //  View booking (READ)
     @GetMapping("/{bookingId}")
     public BookingResponseDTO getBooking(@PathVariable Long bookingId) {
         return bookingService.getBookingById(bookingId);
     }
 
-    // 🔹 Get booking for MODIFY (EDIT)
+    //  Get booking for MODIFY (EDIT)
     @GetMapping("/{bookingId}/edit")
     public BookingModifyDTO getBookingForModify(@PathVariable Long bookingId) {
         return bookingService.getBookingForModify(bookingId);
     }
 
-    // 🔹 Update booking
+    //  Update booking
     @PutMapping("/{bookingId}")
     public BookingModifyDTO updateBooking(
             @PathVariable Long bookingId,
@@ -64,7 +64,7 @@ public class BookingController {
         return bookingService.updateBooking(bookingId, dto);
     }
 
-    // 🔹 Cancel booking
+    //  Cancel booking
     @PutMapping("/{bookingId}/cancel")
     public void cancel(@PathVariable Long bookingId) {
         bookingService.cancelBooking(bookingId);
